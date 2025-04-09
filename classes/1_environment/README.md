@@ -3,7 +3,7 @@
 
 ## Instalação
 
-**TypeScript localmente em um projeto espefícico**
+**TypeScript localmente em um projeto específico**
 ```bash
 npm install typescript --save-dev
 ```
