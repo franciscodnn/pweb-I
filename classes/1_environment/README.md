@@ -32,7 +32,7 @@ tsc index.ts
 ```
 
 ## Pacotes adicionais
-**@types/node**, **ts-node**, **tsc**
+**@types/node**, **ts-node**, **tsx**
 ```bash
 npm install --save-dev @types/node ts-node tsx
 ```
