@@ -1,31 +1,6 @@
-export {};
+import { areaCirculo } from './area_circulo.js';
 
-// const x: string = 'abcd';
+let pi: unknown = "3.14";
+let raio = "10";
 
-// const y = (v: string) => v as unknown as number;
-
-// const z = Number(y(x));
-
-// console.log( typeof z, z );
-
-// -----
-interface Disciplina {
-  titulo: string,
-  CH: number,
-  pre_requisitos: string
-};
-
-const disciplina:Disciplina = {
-  titulo: "PWEB I",
-  // CH: "80" as unknown as number,
-  CH: 80,
-  pre_requisitos: "LS, BD, POO"
-};
-
-console.log( disciplina );
-
-type NovoTipo = "a" | "b" | "c";
-
-const x: NovoTipo = "c";
-
-console.log( x );
+console.log( (areaCirculo(pi as number, raio as number)) );
