@@ -1,3 +1,5 @@
+export {};
+
 interface Opcoes {
   largura: number;
   altura: number;
@@ -18,3 +20,31 @@ const opcoes: Opcoes = objeto;  // OK com variável intermediária
 const opcoes2: Opcoes = { largura: 100, altura: 200, cor: "vermelho" } as Opcoes;
 
 console.log( opcoes2 );
+
+// ----
+interface PropriedadesOpcao {
+  titulo?: string;
+  descricao?: string;
+}
+
+const opcaoCompleta: Required<PropriedadesOpcao> = {
+  titulo: "Obrigatório",
+  descricao: "teste"
+  
+};
+
+console.log(opcaoCompleta);
+
+interface Produto {
+  id: number;
+  nome: string;
+  preco: number;
+  descricao: string;
+}
+
+let produto: Partial<Produto> = {
+  id: 1,
+  nome: "notebook"
+}
+
+console.log( produto );
