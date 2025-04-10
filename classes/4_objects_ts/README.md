@@ -1,4 +1,4 @@
-# TypeScript: Objetos - Resumo
+# Aula 4 - Objetos
 
 ## Tipos de Objeto
 

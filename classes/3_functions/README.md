@@ -1,4 +1,4 @@
-# TypeScript: Funções - Resumo
+# Aula 3 - Funções
 
 ## Tipos de Função
 - **Declaração de tipos para funções**: Define os tipos dos parâmetros e retorno
