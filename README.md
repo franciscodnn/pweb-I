@@ -3,3 +3,4 @@
 2. [Tipos em TypeScript](./classes/2_ts_types/README.md)
 3. [Funções em TypeScript](./classes/3_functions/README.md)
 4. [Objetos em TypeScript](./classes/4_objects_ts/README.md)
+5. [Classes em TypeScript](./classes/5_classes/README.md)
