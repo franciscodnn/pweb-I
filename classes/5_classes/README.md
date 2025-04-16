@@ -493,7 +493,7 @@ class Contador {
   
   // Solução 2: bind() para vincular 'this'
   iniciarContagemBind() {
-    setTimeout(function() {
+    setTimeout(function(this: Contador) {
       this.incrementar();
       console.log(this.valor);
     }.bind(this), 1000);

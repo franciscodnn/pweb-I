@@ -128,6 +128,25 @@
   function criarInstancia<T>(Construtor: new (nome: string) => T, nome: string): T {
     return new Construtor(nome);
   }
+
+  // Exemplo de classe que bate com o TipoContrutor
+  class Pessoa {
+    nome: string;
+
+    constructor(nome: string) {
+      this.nome = nome;
+    }
+
+    cumprimentar() {
+      console.log(`Olá, meu nome é ${this.nome}`);
+    }
+  }
+
+  // Criando uma instância da classe Pessoa com a função genérica
+  const pessoa = criarInstancia(Pessoa, "Ana");
+
+  console.log(pessoa.nome); // Ana
+  (pessoa as Pessoa).cumprimentar(); // Olá, meu nome é Ana
   ```
 
 ## Assinaturas de Chamada
