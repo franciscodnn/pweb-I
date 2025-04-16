@@ -111,5 +111,5 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
 
-  "include": ["src/function.ts"]
+  "include": ["src/function_examples.ts"]
 }
