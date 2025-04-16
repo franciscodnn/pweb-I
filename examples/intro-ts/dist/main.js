@@ -1,3 +1,10 @@
-const x = 5;
-console.log(x);
+const x = "10";
+let y = true;
+// console.log( typeof x );
+// console.log( typeof y );
+const list = [];
+list.push(1);
+list.push("2");
 export {};
+// console.log( list );
+// console.log( Array.isArray(list) );
