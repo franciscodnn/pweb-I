@@ -111,5 +111,5 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
 
-  "include": ["src/object_examples_part2.ts"]
+  "include": ["src/class_examples_part2.ts"]
 }
