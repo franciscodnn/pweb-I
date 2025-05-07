@@ -1,6 +1,8 @@
 # Programação para a Web I - TSI/IFPB Campus João Pessoa
-1. [Prepração do ambiente](./classes/1_environment/README.md)
-2. [Tipos em TypeScript](./classes/2_ts_types/README.md)
-3. [Funções em TypeScript](./classes/3_functions/README.md)
-4. [Objetos em TypeScript](./classes/4_objects_ts/README.md)
-5. [Classes em TypeScript](./classes/5_classes/README.md)
+1. [TypeScript - Prepração do ambiente](./classes/1_environment/README.md)
+2. [TYpeScript - Tipos](./classes/2_ts_types/README.md)
+3. [TypeScript - Funções](./classes/3_functions/README.md)
+4. [TypeScript - Objetos](./classes/4_objects_ts/README.md)
+5. [TypeScript - Classes](./classes/5_classes/README.md)
+6. [Angular - Visão Geral e Instalação](./classes/6_angular_overview/README.md)
+7. [Angular - Fundamentos](./classes/7_angular_fundamentals/README.md)
