@@ -17,8 +17,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: '<h1>Olá Angular!</h1>',
-  standalone: true
+  template: '<h1>Olá Angular!</h1>'
 })
 export class AppComponent {
   title = 'Minha Primeira App Angular';
