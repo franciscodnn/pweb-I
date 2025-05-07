@@ -47,8 +47,7 @@ import { Component } from '@angular/core';
       <h2>Contador: {{ contador }}</h2>
       <button (click)="incrementar()">Aumentar</button>
     </div>
-  `,
-  standalone: true
+  `
 })
 export class ContadorComponent {
   contador = 0;
@@ -72,7 +71,6 @@ import { ContadorComponent } from './contador.component';
     <h1>Aplicação Angular</h1>
     <app-contador></app-contador>
   `,
-  standalone: true,
   imports: [ContadorComponent]
 })
 export class AppComponent {}
@@ -106,8 +104,7 @@ import { Component, signal, computed } from '@angular/core';
       <p>Dobro: {{ contadorDobro() }}</p>
       <button (click)="incrementar()">Aumentar</button>
     </div>
-  `,
-  standalone: true
+  `
 })
 export class ContadorSignalComponent {
   // Signal primitivo
@@ -162,8 +159,7 @@ import { Component } from '@angular/core';
         }
       </ul>
     </div>
-  `,
-  standalone: true
+  `
 })
 export class ListaComponent {
   titulo = 'Minha Lista de Tarefas';
@@ -228,8 +224,7 @@ import { DadosService } from './dados.service';
         }
       </ul>
     </div>
-  `,
-  standalone: true
+  `
 })
 export class ListaComServicoComponent {
   // O serviço é injetado via constructor
@@ -289,9 +284,7 @@ export class ListaComServicoInjectComponent {
 * Use serviços para compartilhar dados e lógica entre componentes
 * Prefira Signals para estado reativo em novos projetos
 * Explore os novos controles de fluxo (`@if`, `@for`) disponíveis no Angular 17+
-* Experimente o padrão de injeção funcional com `inject()` como alternativa à injeção via construtor
 * Utilize TypeScript corretamente para maximizar segurança de tipo
-* Considere componentes standalone para aplicações mais modulares
 * Implemente testes unitários desde o início do desenvolvimento
 
 ## Tabela Comparativa: Recursos Template do Angular
