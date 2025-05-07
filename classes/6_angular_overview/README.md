@@ -4,18 +4,19 @@
 
 ## Visão Geral do Angular
 
-* **O que é**: Framework JavaScript para construção de aplicações web SPA (Single Page Applications)
+* **O que é**: Framework JavaScript para construção de aplicações web
 * **Características principais**:
   * Baseado em componentes reutilizáveis
   * Sistema de templates declarativo
   * Gerenciamento de estado eficiente
   * Ferramentas de desenvolvimento robustas
+  * Aplicações web SPA, SSR e PWA
 
 ## Arquitetura Angular
 
 * **Componentes**: Blocos de construção fundamentais que combinam:
   * Templates HTML
-  * Lógica TypeScript
+  * Lógica em TypeScript
   * Estilos CSS específicos
 * **Serviços**: Classes para compartilhar funcionalidades entre componentes
 * **Injeção de Dependências**: Sistema que torna componentes mais testáveis e modulares

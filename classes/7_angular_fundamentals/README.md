@@ -7,7 +7,7 @@
 * **Arquitetura baseada em componentes**: Todo o desenvolvimento Angular é centrado em componentes reutilizáveis
 * **TypeScript por padrão**: Oferece tipagem estática para código mais seguro e produtivo
 * **Abordagem declarativa**: Você descreve "o que" deve acontecer, não "como" deve ser implementado
-* **Angular Template Syntax revamp**: Nova sintaxe de templates mais intuitiva e expressiva
+* **Angular Template Syntax**: Nova sintaxe de templates mais intuitiva e expressiva
 
 ### Exemplo Simples:
 
