@@ -1,0 +1,12 @@
+<div>
+    <p>Contador: {{ count() }}</p>
+    <p>Dobro de count: {{ doubleComputed() }}</p>
+
+    @if(ehPrimoComputed()){
+    <p>Contador é primo</p>
+    } @else {
+    <p>Contador não é primo</p>
+    }
+
+    <button (click)="incrementar()">incrementar</button>
+</div>
