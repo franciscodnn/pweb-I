@@ -1,0 +1,32 @@
+name: Deploy Notificação Trânsito App
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - './examples/vanilla-js/notificacao-transito-app-js/**'
+  workflow_dispatch:  # Permite executar o workflow manualmente pela interface do GitHub
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+      
+      # - name: Install dependencies
+        # Se seu projeto tiver dependências que precisam ser instaladas com npm
+        # Descomente a linha abaixo e adapte o caminho conforme necessário
+        # run: cd vanilla-js/notificacao-transito-app-js && npm install
+      
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: vanilla-js/notificacao-transito-app-js # Pasta a ser publicada
+          branch: gh-pages # Branch para onde os arquivos de build serão enviados
+          clean: true # Remove arquivos antigos
