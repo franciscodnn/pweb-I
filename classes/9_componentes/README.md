@@ -245,46 +245,52 @@ Os outputs permitem que eventos e dados sejam emitidos de um componente filho pa
 ### Exemplo básico:
 
 ```typescript
-// Componente filho (contador.component.ts)
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, signal } from '@angular/core';
 
 @Component({
   selector: 'app-contador',
   standalone: true,
   template: `
     <div>
-      <p>Contagem: {{ contador }}</p>
+      <p>Contagem: {{ contador() }}</p>
       <button (click)="incrementar()">Incrementar</button>
       <button (click)="resetar()">Resetar</button>
     </div>
   `
 })
 export class ContadorComponent {
-  contador: number = 0;
+  // Substituindo variável comum por signal
+  contador = signal(0);
   
   @Output() valorAlterado = new EventEmitter<number>();
   @Output() foiResetado = new EventEmitter<void>();
   
   incrementar() {
-    this.contador++;
-    this.valorAlterado.emit(this.contador);
+    // Atualizando o valor do signal
+    this.contador.update(valor => valor + 1);
+    this.valorAlterado.emit(this.contador());
   }
   
   resetar() {
-    this.contador = 0;
+    // Definindo o valor do signal
+    this.contador.set(0);
     this.foiResetado.emit();
-    this.valorAlterado.emit(this.contador);
+    this.valorAlterado.emit(this.contador());
   }
 }
+```
 
-// Componente pai (app.component.ts)
-import { Component } from '@angular/core';
+## Componente pai (app.component.ts)
+
+```typescript
+import { Component, signal } from '@angular/core';
 import { ContadorComponent } from './contador.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ContadorComponent],
+  imports: [ContadorComponent, CommonModule],
   template: `
     <h1>Demo de Contador</h1>
     <app-contador 
@@ -292,18 +298,21 @@ import { ContadorComponent } from './contador.component';
       (foiResetado)="onResetado()">
     </app-contador>
     
-    <p *ngIf="mensagem">{{ mensagem }}</p>
+    @if (mensagem()) {
+      <p>{{ mensagem() }}</p>
+    }
   `
 })
 export class AppComponent {
-  mensagem: string = '';
+  // Substituindo variável comum por signal
+  mensagem = signal('');
   
   onValorAlterado(novoValor: number) {
-    this.mensagem = `O contador foi alterado para: ${novoValor}`;
+    this.mensagem.set(`O contador foi alterado para: ${novoValor}`);
   }
   
   onResetado() {
-    this.mensagem = 'O contador foi resetado!';
+    this.mensagem.set('O contador foi resetado!');
   }
 }
 ```
