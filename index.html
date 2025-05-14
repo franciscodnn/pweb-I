@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- Desenvolvido para fins acadêmicos com auxílio de softwares de IA - Lavable e Github Copilot -->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notificações de Trânsito</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { 
+        extend: {
+          colors: {
+            primary: '#4A90E2',
+            primaryDark: '#3A80D2',
+            secondary: '#1A1F2C',
+            light: '#F5F7FA',
+            multa: '#ea384c',
+            advertencia: '#f9d776',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-light text-secondary font-sans">
+  <div class="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
+    <h1 class="text-4xl font-bold text-center mb-12 relative">
+      Notificações de Trânsito
+      <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-primary rounded"></span>
+    </h1>
+    
+    <div class="flex justify-end mb-8">
+      <button id="addNotificationBtn" class="bg-primary hover:bg-primaryDark text-white font-medium py-3 px-5 rounded-md transition duration-200 shadow-sm">
+        Nova Notificação
+      </button>
+    </div>
+    
+    <div id="notificationGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Os cards serão inseridos aqui pelo JavaScript -->
+    </div>
+  </div>
+  
+  <!-- Off Canvas para adicionar nova notificação -->
+  <div id="offCanvas" class="fixed top-0 right-[-480px] w-full max-w-md h-full bg-white shadow-lg transition-all duration-300 ease-in-out z-50">
+    <div class="h-full p-6 overflow-y-auto">
+      <div class="flex justify-between items-center mb-6 pb-3 border-b">
+        <h2 class="text-2xl font-semibold">Nova Notificação</h2>
+        <button id="closeOffCanvasBtn" class="text-gray-400 hover:text-gray-600 text-2xl font-light">&times;</button>
+      </div>
+      
+      <form id="notificationForm" class="space-y-5">
+        <div>
+          <label for="tipo" class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+          <select id="tipo" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:ring-opacity-30 focus:border-primary transition duration-200" required>
+            <option value="">Selecione</option>
+            <option value="multa">Multa</option>
+            <option value="advertencia">Advertência</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="placa" class="block text-sm font-medium text-gray-700 mb-1">Placa do Veículo</label>
+          <input type="text" id="placa" placeholder="ABC1234" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:ring-opacity-30 focus:border-primary transition duration-200" required>
+        </div>
+        
+        <div>
+          <label for="cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF do Proprietário</label>
+          <input type="text" id="cpf" placeholder="123.456.789-00" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:ring-opacity-30 focus:border-primary transition duration-200" required>
+        </div>
+        
+        <div>
+          <label for="data" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
+          <input type="date" id="data" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:ring-opacity-30 focus:border-primary transition duration-200" required>
+        </div>
+        
+        <div>
+          <label for="valor" class="block text-sm font-medium text-gray-700 mb-1">Valor (centavos)</label>
+          <input type="number" id="valor" placeholder="29347" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:ring-opacity-30 focus:border-primary transition duration-200" required>
+          <p class="text-sm text-gray-500 mt-1">Digite um valor inteiro. Ex: para R$ 293,47 digite 29347</p>
+        </div>
+        
+        <div>
+          <label for="descricao" class="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
+          <textarea id="descricao" rows="3" placeholder="Descreva brevemente a infração" class="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:ring-opacity-30 focus:border-primary transition duration-200" required></textarea>
+        </div>
+        
+        <button type="submit" class="w-full bg-primary hover:bg-primaryDark text-white font-medium py-3 px-4 rounded-md transition duration-200">Adicionar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- <script src="components/notificationCard.js"></script> -->
+  <script src="js/script.js" type="module"></script>
+</body>
+</html>
