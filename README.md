@@ -6,3 +6,5 @@
 5. [TypeScript - Classes](./classes/5_classes/README.md)
 6. [Angular - Visão Geral e Instalação](./classes/6_angular_overview/README.md)
 7. [Angular - Fundamentos](./classes/7_angular_fundamentals/README.md)
+8. [Angular - Signals](./classes/8_signals/README.md)
+9. [Angular - Componentes](./classes/9_componentes/README.md)
