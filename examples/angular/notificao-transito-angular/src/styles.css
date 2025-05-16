@@ -1,2 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+/* Definindo as cores como variáveis CSS */
+:root {
+  --color-primary: #4A90E2;
+  --color-primary-dark: #3A80D2;
+  --color-secondary: #1A1F2C;
+  --color-light: #F5F7FA;
+  --color-multa: #ea384c;
+  --color-advertencia: #f9d776;
+}
+
+/* Criando classes utilitárias */
+@layer components {
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+
+  .bg-primary-dark {
+    background-color: var(--color-primary-dark);
+  }
+
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+
+  .bg-light {
+    background-color: var(--color-light);
+  }
+
+  .bg-multa {
+    background-color: var(--color-multa);
+  }
+
+  .bg-advertencia {
+    background-color: var(--color-advertencia);
+  }
+
+  .text-primary {
+    color: var(--color-primary);
+  }
+
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+
+}

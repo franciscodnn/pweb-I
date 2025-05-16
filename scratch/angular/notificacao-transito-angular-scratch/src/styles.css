@@ -11,7 +11,7 @@
   --color-advertencia: #f9d776;
 }
 
-/* Criando classes utilitárias com @apply */
+/* Criando classes utilitárias */
 @layer components {
   .bg-primary {
     background-color: var(--color-primary);

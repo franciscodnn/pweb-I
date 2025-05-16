@@ -3,11 +3,36 @@
     Notificações de Trânsito
     <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-20 h-1 bg-primary rounded"></span>
   </h1>
-  
+
+  <div class="flex justify-end mb-4">
+    <button type="button" class="p-2 rounded hover:bg-gray-100 focus:outline-none"
+      (click)="atualizarVisao()" aria-label="Toggle CPF visibility">
+      @if(verDadosSensiveis()) {
+      <!-- Olho aberto -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+    } @else {
+      <!-- Para o olho fechado, troque o SVG abaixo: -->
+      
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.269-2.943-9.543-7a9.956 9.956 0 012.293-3.95M6.873 6.872A9.956 9.956 0 0112 5c4.477 0 8.268 2.943 9.542 7a9.956 9.956 0 01-4.043 5.112M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M3 3l18 18" />
+      </svg>
+    }
+    </button>
+  </div>
+
   <div id="notificationGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Os cards serão inseridos aqui -->
-    <app-notificacao-card></app-notificacao-card>
-    <app-notificacao-card></app-notificacao-card>
-    <app-notificacao-card></app-notificacao-card>
+    @for(item of notificacoes(); track item.id) {
+    <notificacao-card [placa]="item.placa" [cpf]="item.cpf.toString()" [valor]="item.valor"
+      [dataNotificacao]="item.data" [descricao]="item.descricao" [tipo]="item.tipo" [verDados]="verDadosSensiveis()"/>
+    }
   </div>
 </div>
