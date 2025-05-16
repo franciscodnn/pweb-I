@@ -176,8 +176,8 @@ import { Component, Input } from '@angular/core';
   `]
 })
 export class CartaoComponent {
-  @Input() titulo: string = '';
-  @Input() descricao: string = '';
+  titulo: string = input('');
+  descricao: string = input('');
 }
 
 // Componente pai (app.component.ts)
@@ -208,9 +208,8 @@ export class AppComponent {}
 
 ```typescript
 export class CartaoComponent {
-  private _categoria: string = '';
+  private _categoria: string = input('');
   
-  @Input()
   set categoria(valor: string) {
     this._categoria = valor.toUpperCase();
   }
@@ -225,7 +224,7 @@ export class CartaoComponent {
 
 ```typescript
 export class CartaoComponent {
-  @Input('cardTitle') titulo: string = '';
+  titulo: string = input('', { alias: 'cardTitle' });
   // Uso: <app-cartao cardTitle="Título"></app-cartao>
 }
 ```
@@ -262,8 +261,8 @@ export class ContadorComponent {
   // Substituindo variável comum por signal
   contador = signal(0);
   
-  @Output() valorAlterado = new EventEmitter<number>();
-  @Output() foiResetado = new EventEmitter<void>();
+  valorAlterado = output<number>();
+  foiResetado = output<void>();
   
   incrementar() {
     // Atualizando o valor do signal
