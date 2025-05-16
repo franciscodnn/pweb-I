@@ -1,16 +1,39 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed, input } from '@angular/core';
 
 @Component({
-  selector: 'app-notificacao-card',
+  selector: 'notificacao-card',
   imports: [],
   templateUrl: './notificacao-card.component.html',
+  //template: `
+    // <h1>Olá, Mundo</h1>
+  //`,
   styleUrl: './notificacao-card.component.css'
 })
 export class NotificacaoCardComponent {
-  placa = signal("ABC1234");
-  cpf = signal("111.111.111-10");
-  dataNotificacao = signal("10/05/2025");
-  valor = signal(250);
-  descricao = signal("Excesso de velocidade");
+  placa = input.required<string>();
+  cpf = input.required<string>();
+  dataNotificacao = input.required<string>();
+  // valor = input.required<number, string>({
+  //   transform: (valor: string): number => Number(valor)
+  // });
+  valor = input.required<string>();
+  descricao = input.required<string>();
 
+  formatarCPF = computed(
+    () => this.cpf().replace(/\d{3}-\d{2}$/, '***-**')
+  );
+
+  formatarValor = computed(
+    () => {
+      if(Number(this.valor()) > 0){
+        return "***";
+      }
+      return this.valor();
+    }
+  );
+
+}
+
+function transformarStringToNumber(valor: string): number {
+  return Number(valor);
 }

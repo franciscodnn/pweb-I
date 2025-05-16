@@ -184,6 +184,8 @@ export class FormularioUsuarioComponent {
     if (this.formulario.valid) {
       // Atualizando o sinal com os valores do formulário
       this.usuarioSalvo.set({
+        // ajustar this.formulario.value.nome => nome.value
+        // ajustar this.formulario.value.email => nome.email
         nome: this.formulario.value.nome || '',
         email: this.formulario.value.email || ''
       });

@@ -30,8 +30,15 @@
   
   <div id="notificationGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Os cards serão inseridos aqui -->
-    <app-notificacao-card></app-notificacao-card>
-    <app-notificacao-card></app-notificacao-card>
-    <app-notificacao-card></app-notificacao-card>
+
+    @for(item of notificacoes(); track item.id){
+      <notificacao-card 
+        placa="{{ item.placa }}"
+        cpf="{{ item.cpf }}"
+        dataNotificacao="{{ item.data }}"
+        valor="{{ item.valor }}"
+        descricao="{{ item.descricao }}"
+      />
+    }    
   </div>
 </div>
