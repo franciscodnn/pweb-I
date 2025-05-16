@@ -104,18 +104,6 @@ O Angular fornece encapsulamento de estilos, garantindo que os estilos definidos
 })
 ```
 
-### Encapsulamento de estilos
-
-O Angular oferece três modos de encapsulamento:
-
-```typescript
-@Component({
-  // ...
-  encapsulation: ViewEncapsulation.Emulated // Padrão (emulado)
-  // Outras opções: ViewEncapsulation.None, ViewEncapsulation.ShadowDom
-})
-```
-
 ### Variáveis CSS e estilos específicos
 
 ```typescript
