@@ -1,5 +1,5 @@
 // Dados de exemplo para as notificações (com CPF como número e valor como inteiro)
-const notificacoesMock: { id: number, tipo: string; placa: string; cpf: number; data: string; valor: number; descricao: string; }[] = [
+const notificacoesMock: { id: number, tipo: string; placa: string; cpf: number; data: string; valor: number; descricao: string; status: string; }[] = [
   {
     id: 1,
     tipo: "multa",
@@ -7,7 +7,8 @@ const notificacoesMock: { id: number, tipo: string; placa: string; cpf: number; 
     cpf: 12345678900,
     data: "2025-05-10",
     valor: 29347, // R$ 293,47
-    descricao: "Excesso de velocidade em via urbana"
+    descricao: "Excesso de velocidade em via urbana",
+    status: "pendente"
   },
   {
     id: 2,
@@ -16,7 +17,8 @@ const notificacoesMock: { id: number, tipo: string; placa: string; cpf: number; 
     cpf: 98765432100,
     data: "2025-05-08",
     valor: 0, // R$ 0,00
-    descricao: "Estacionamento em local proibido - Primeira ocorrência"
+    descricao: "Estacionamento em local proibido - Primeira ocorrência",
+    status: "pendente"
   },
   {
     id: 3,
@@ -25,7 +27,8 @@ const notificacoesMock: { id: number, tipo: string; placa: string; cpf: number; 
     cpf: 45678912300,
     data: "2025-05-12",
     valor: 15770, // R$ 157,70
-    descricao: "Uso do celular durante a condução do veículo"
+    descricao: "Uso do celular durante a condução do veículo",
+    status: "pendente"
   },
   {
     id: 4,
@@ -34,7 +37,8 @@ const notificacoesMock: { id: number, tipo: string; placa: string; cpf: number; 
     cpf: 32165498700,
     data: "2025-05-09",
     valor: 0, // R$ 0,00
-    descricao: "Parada em faixa de pedestres - Orientação"
+    descricao: "Parada em faixa de pedestres - Orientação",
+    status: "pendente"
   },
   {
     id: 5,
@@ -43,7 +47,8 @@ const notificacoesMock: { id: number, tipo: string; placa: string; cpf: number; 
     cpf: 78912345600,
     data: "2025-05-11",
     valor: 88041, // R$ 880,41
-    descricao: "Dirigir sob efeito de álcool"
+    descricao: "Dirigir sob efeito de álcool",
+    status: "pendente"
   }
 ];
 

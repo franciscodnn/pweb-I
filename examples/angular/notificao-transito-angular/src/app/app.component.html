@@ -32,12 +32,20 @@
     <!-- Os cards serão inseridos aqui -->
 
     @for(item of notificacoes(); track item.id){
-      <notificacao-card 
+      <!-- <notificacao-card 
         placa="{{ item.placa }}"
         cpf="{{ item.cpf }}"
         dataNotificacao="{{ item.data }}"
         valor="{{ item.valor }}"
         descricao="{{ item.descricao }}"
+      /> -->
+
+      <notificacao-card 
+        [placa]="item.placa"
+        [cpf]="item.cpf.toString()"
+        [dataNotificacao]="item.data"
+        [valor]="item.valor.toString()"
+        [descricao]="item.descricao"
       />
     }    
   </div>

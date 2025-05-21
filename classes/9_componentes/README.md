@@ -221,7 +221,7 @@ export class CartaoComponent {
 
 ```typescript
 export class CartaoComponent {
-  @Input({ required: true }) titulo!: string;
+  titulo = input.required<string>();
 }
 ```
 
@@ -308,7 +308,7 @@ export class AppComponent {
 
 ```typescript
 export class ContadorComponent {
-  @Output('counterChanged') valorAlterado = new EventEmitter<number>();
+  valorAlterado = output<number>({ alias: 'counterChanged' });
   // Uso: <app-contador (counterChanged)="onChanged($event)"></app-contador>
 }
 ```
@@ -455,7 +455,7 @@ export interface Tarefa {
 }
 
 // tarefa-item.component.ts
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output, EventEmitter } from '@angular/core';
 import { Tarefa } from './tarefa.interface';
 
 @Component({
@@ -504,16 +504,16 @@ import { Tarefa } from './tarefa.interface';
   `]
 })
 export class TarefaItemComponent {
-  @Input({ required: true }) tarefa!: Tarefa;
-  @Output() tarefaConcluida = new EventEmitter<number>();
-  @Output() tarefaRemovida = new EventEmitter<number>();
+  tarefa = input.required<Tarefa>();
+  tarefaConcluida = output<number>();
+  tarefaRemovida = output<number>();
   
   marcarConcluida() {
-    this.tarefaConcluida.emit(this.tarefa.id);
+    this.tarefaConcluida.emit(this.tarefa().id);
   }
   
   remover() {
-    this.tarefaRemovida.emit(this.tarefa.id);
+    this.tarefaRemovida.emit(this.tarefa().id);
   }
 }
 
@@ -562,11 +562,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class TarefaFormComponent {
   novaTarefa = '';
-  @Output() tarefaAdicionada = new EventEmitter<string>();
+  tarefaAdicionada = output<string>();
   
   adicionarTarefa() {
     if (this.novaTarefa.trim()) {
-      this.tarefaAdicionada.emit(this.novaTarefa);
+      this.tarefaAdicionada().emit(this.novaTarefa);
       this.novaTarefa = '';
     }
   }
@@ -734,7 +734,7 @@ export class AppComponent {}
    - Classes: `FeatureComponent`
    - Seletores: `app-feature`
 
-6. **Separação de Preocupações**: Mantenha o template focado na apresentação e a classe na lógica.
+6. **Separação de Preocupações**: Mantenha o template (HTML) focado na apresentação e a classe (TS) na lógica.
 
 7. **Use OnPush para Melhor Desempenho**:
    ```typescript

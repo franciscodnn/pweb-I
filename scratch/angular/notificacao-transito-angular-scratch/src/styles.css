@@ -9,6 +9,7 @@
   --color-light: #F5F7FA;
   --color-multa: #ea384c;
   --color-advertencia: #f9d776;
+  --color-multa-paga: #4CAF50;
 }
 
 /* Criando classes utilitárias */
@@ -31,6 +32,10 @@
 
   .bg-multa {
     background-color: var(--color-multa);
+  }
+
+  .bg-multa-paga {
+    background-color: var(--color-multa-paga);
   }
 
   .bg-advertencia {

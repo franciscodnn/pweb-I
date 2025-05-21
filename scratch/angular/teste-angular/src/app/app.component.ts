@@ -2,9 +2,11 @@ import { Component, computed, signal, Signal, WritableSignal, effect } from '@an
 // import { UtilsService } from 'utils';
 
 import { formatCurrency, formatDate } from '../../projects/utils/src/lib/utils';
+import { ContadorComponent } from '../contador/contador.component';
 
 @Component({
   selector: 'app-root',
+  imports: [ContadorComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -12,6 +14,8 @@ export class AppComponent {
   titulo: string = 'projeto-teste-angular';
   count = signal(0);
   doubleCount = computed(() => this.count() * 2);
+
+  initialCount = signal(0);
 
 
   constructor() {

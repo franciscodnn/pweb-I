@@ -31,8 +31,21 @@
   <div id="notificationGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <!-- Os cards serão inseridos aqui -->
     @for(item of notificacoes(); track item.id) {
-    <notificacao-card [placa]="item.placa" [cpf]="item.cpf.toString()" [valor]="item.valor"
-      [dataNotificacao]="item.data" [descricao]="item.descricao" [tipo]="item.tipo" [verDados]="verDadosSensiveis()"/>
-    }
+    <notificacao-card 
+      [id]="item.id"
+      [placa]="item.placa" 
+      [cpf]="item.cpf.toString()" 
+      [valor]="item.valor"
+      [dataNotificacao]="item.data" 
+      [descricao]="item.descricao" 
+      [tipo]="item.tipo" 
+      [verDados]="verDadosSensiveis()"
+      [status]="item.status" 
+      (novoStatus)="atualizarStatus($event)" />
+  }
+  </div>
+
+  <div class="flex justify-start mt-8">
+    Quantidade de multas pagas: {{ multasPagas() }}
   </div>
 </div>

@@ -1,0 +1,5 @@
+<div class="tarefa-item" [class.concluida]="tarefa().concluida">
+  <input type="checkbox" [checked]="tarefa().concluida" (change)="marcarConcluida()" />
+  <span class="titulo">{{ tarefa().titulo }}</span>
+  <button class="btn-remover" (click)="remover()">X</button>
+</div>
