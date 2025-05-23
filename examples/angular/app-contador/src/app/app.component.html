@@ -1,0 +1,12 @@
+<main>
+  <h1>Contador</h1>
+
+  <contador-component 
+    [(valor)]="valorInicializacao" 
+    (status)="tratarStatus($event)"/>
+
+  <hr />
+  <p>Última atualização: {{ status() }}</p>
+  <hr />
+  <!-- <p>ValorModel: {{ valor</p> -->
+</main>
