@@ -12,10 +12,7 @@ import { Component, signal, computed, input } from '@angular/core';
 export class NotificacaoCardComponent {
   placa = input.required<string>();
   cpf = input.required<string>();
-  dataNotificacao = input.required<string>();
-  // valor = input.required<number, string>({
-  //   transform: (valor: string): number => Number(valor)
-  // });
+  dataNotificacao = input.required<string>();  
   valor = input.required<string>();
   descricao = input.required<string>();
 
@@ -31,6 +28,10 @@ export class NotificacaoCardComponent {
       return this.valor();
     }
   );
+
+  // valor = input.required<number, string>({
+  //   transform: (valor: string): number => Number(valor)
+  // });
 
 }
 
