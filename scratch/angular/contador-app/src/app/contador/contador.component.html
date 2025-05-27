@@ -1,1 +1,4 @@
-<h2>Valor: {{ countValue }}</h2>
+<h2>Valor: {{ countValue() }}</h2>
+
+<button type="button" (click)="incrementar(1)" style="margin-right: 10px;">Incrementar</button>
+<button type="button" (click)="decrementar(1)">Decrementar</button>

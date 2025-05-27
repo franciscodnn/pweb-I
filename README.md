@@ -8,3 +8,5 @@
 7. [Angular - Fundamentos](./classes/7_angular_fundamentals/README.md)
 8. [Angular - Signals](./classes/8_signals/README.md)
 9. [Angular - Componentes](./classes/9_componentes/README.md)
+10. [Angular - Templates](./classes/10_templates/README.md)
+11. [Angular - Formulários](./classes/11_forms/README.md)

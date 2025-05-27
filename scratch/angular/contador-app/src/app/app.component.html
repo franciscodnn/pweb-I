@@ -1,4 +1,9 @@
 <main>
-  <h1>Imagem</h1>
-  <img [src]="imagem" alt="Imagem do contador" />
+  <h1>Contador</h1>
+  <app-contador [(initialCount)]="count" (change)="updateStatus($event)" />
+
+  <p>{{ status() | uppercase }}</p>
+
+  <p>Contador: {{ novoValor() }}</p>
+
 </main>
