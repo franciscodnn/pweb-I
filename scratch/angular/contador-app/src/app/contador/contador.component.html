@@ -2,3 +2,11 @@
 
 <button type="button" (click)="incrementar(1)" style="margin-right: 10px;">Incrementar</button>
 <button type="button" (click)="decrementar(1)">Decrementar</button>
+
+<hr/>
+
+<input type="text" [formControl]="inputValue" placeholder="Digite um valor" />
+
+<p>{{ inputValue.value | uppercase }}</p>
+<p>{{ toUpperCaseInput() }}</p>
+<button (click)="inputValue.setValue('')">Resetar</button>

@@ -2,10 +2,13 @@ import { Component, signal, model, computed } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
 
 import { ContadorComponent } from './contador/contador.component';
+import { FormBuilderComponent } from './form/form.component';
+import { ValidationFormComponent } from './form-valiador-basico/form-valiador-basico.component';
+import { CustomValidationComponent } from './form-valiador-customizado/form-valiador-customizado.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ContadorComponent, UpperCasePipe],
+  imports: [ContadorComponent, FormBuilderComponent, UpperCasePipe, ValidationFormComponent, CustomValidationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
