@@ -1,8 +1,12 @@
 import { Component, model, input, output, signal } from '@angular/core';
 
+import { PercentPipe } from '@angular/common';
+
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'contador-component',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './contador.component.html',
   styleUrl: './contador.component.css'
 })
@@ -13,7 +17,12 @@ export class ContadorComponent {
   // valorModel = model(0);
   // valor = signal(this.valorInicial());
 
-  status = output<string>();
+  situacao = output<string>();
+
+  numeros = [1, 3, 5, 7, 9];
+
+  valorInicializado = new FormControl();
+  nome = new FormControl();
 
   constructor() {
     // this.valor.set(this.valorInicial());
@@ -23,15 +32,15 @@ export class ContadorComponent {
   incrementar() {
     this.valor.update(
       value => value + 1
-    );    
-    this.status.emit('incremento');
+    );
+    this.situacao.emit('incremento');
   }
 
   decrementar() {
     this.valor.update(
       valor => valor - 1
     );
-    this.status.emit('decremento');
+    this.situacao.emit('decremento');
   }
 
 }

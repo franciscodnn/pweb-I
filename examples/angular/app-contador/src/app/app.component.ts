@@ -1,9 +1,10 @@
 import { Component, model, signal } from '@angular/core';
 import { ContadorComponent } from './contador/contador.component';
+import { UpperCasePipe, PercentPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [ContadorComponent],
+  imports: [ContadorComponent, UpperCasePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

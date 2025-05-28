@@ -1,4 +1,12 @@
-<p>Contador: {{ valor() }}</p>
+<p>Contador: 
+    @if (valor() >= 0){
+        <span style="color: blue">{{ valor() }}</span>
+    } @else {
+        <span style="color: red">{{ valor() }}</span>
+    }
+    
+</p>
+
 <!-- <p>Contador: {{ valorModel() }}</p> -->
 
 <section>
@@ -8,3 +16,17 @@
     (click)="decrementar()">Decrementar</button>
     <!-- <button (click)="inicializar()">Resetar</button> -->
 </section>
+<hr/>
+
+<input 
+  type="text" 
+  placeholder="inicializar contador" 
+  [formControl]="valorInicializado">
+<button style="margin-left: 5px">Inicializar com {{ valorInicializado.value }}</button>
+
+<p><input type="text" [formControl]="nome"></p>
+<p><input type="text" [formControl]="nome"></p>
+<p><input type="text" [formControl]="nome"></p>
+<p><input type="text" [formControl]="nome"></p>
+<p><input type="text" [formControl]="nome"></p>
+<p>{{ nome.value }}</p>

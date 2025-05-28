@@ -3,10 +3,10 @@
 
   <contador-component 
     [(valor)]="valorInicializacao" 
-    (status)="tratarStatus($event)"/>
+    (situacao)="tratarStatus($event)"/>
 
   <hr />
-  <p>Última atualização: {{ status() }}</p>
+  <p>Última atualização: {{ status() | uppercase }}</p>
   <hr />
   <!-- <p>ValorModel: {{ valor</p> -->
 </main>
