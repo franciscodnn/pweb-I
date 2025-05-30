@@ -1,0 +1,31 @@
+<style>
+  input, button {
+    margin-top: 10px;
+  }
+</style>
+
+<main>
+  <h1>Formulário</h1>
+  <form [formGroup]="userFormBuilder" (ngSubmit)="handleSubmit()">
+    <div>
+      <input type="text" placeholder="Nome" formControlName="nameBuilder">
+    </div>
+    <div>
+      <input type="text" placeholder="Idade" formControlName="ageBuilder">
+    </div>
+    <div>
+      <input type="text" placeholder="E-mail" formControlName="emailBuilder">
+    </div>
+    <div>
+      <input type="text" placeholder="CPF (000.000.000-00)" formControlName="cpfBuilder">
+    </div>
+    <div>
+      <button 
+        type="submit" 
+        
+        [disabled]="userFormBuilder.status === 'INVALID' ? true : false ">Enviar!</button>
+    </div>
+  </form>
+  <hr />
+  <p>Status: {{ userFormBuilder.status === 'INVALID' ? false : true }}</p>
+</main>
