@@ -1,16 +1,16 @@
 import { Component, signal, model, input, output, effect, computed } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { UpperCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-contador',
-  imports: [ReactiveFormsModule, UpperCasePipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './contador.component.html',
   styleUrl: './contador.component.css'
 })
 export class ContadorComponent {
   countValue = signal(0);
   initialCount = model(0);
+  step = input(1); // Novo input para o passo
   change = output<string>();
   inputValue = new FormControl('');
 
@@ -27,14 +27,14 @@ export class ContadorComponent {
     });
   }
 
-  incrementar(defaultValue: number = 1) {
+  incrementar(defaultValue: number = this.step()) {
     this.countValue.update((value) => value + defaultValue);
     this.initialCount.update((value) => value + defaultValue);
 
     this.change.emit(`Incrementado`);
   }
 
-  decrementar(defaultValue: number = 1) {
+  decrementar(defaultValue: number = this.step()) {
     this.countValue.update((value) => value - defaultValue);
     this.initialCount.update((value) => value - defaultValue);
 

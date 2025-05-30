@@ -1,16 +1,105 @@
-<main>
-  <h1>Contador</h1>
-  <app-contador [(initialCount)]="count" (change)="updateStatus($event)" />
+<main class="min-h-screen flex flex-col items-center justify-center p-8 bg-gray-50">
+  <div class="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full space-y-6">
+    <h1 class="text-3xl font-bold text-center text-gray-800">{{ nomeContador() }}</h1>
+    
+    <!-- Formulário de Configuração -->
+    <form [formGroup]="contadorForm" (ngSubmit)="aplicarConfiguracoes()" class="space-y-4 bg-gray-50 p-6 rounded-lg border">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">Configurações do Contador</h2>
+      
+      <!-- Campo Nome do Contador -->
+      <div class="space-y-2">
+        <label for="nome" class="block text-sm font-medium text-gray-700">Nome do Contador:</label>
+        <input 
+          id="nome"
+          type="text" 
+          formControlName="nome"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Digite o nome do contador"
+        />
+        <div class="text-red-500 text-sm">
+          @if (formControls['nome'].invalid && formControls['nome'].touched) {
+            @if (formControls['nome'].errors?.['required']) {
+              <span>O nome é obrigatório</span>
+            }
+            @if (formControls['nome'].errors?.['minlength']) {
+              <span>O nome deve ter pelo menos 3 caracteres</span>
+            }
+          }
+        </div>
+      </div>
 
-  <p>{{ status() | uppercase }}</p>
+      <!-- Campo Valor Inicial -->
+      <div class="space-y-2">
+        <label for="valorInicial" class="block text-sm font-medium text-gray-700">Valor Inicial:</label>
+        <input 
+          id="valorInicial"
+          type="number" 
+          formControlName="valorInicial"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="0"
+        />
+        <div class="text-red-500 text-sm">
+          @if (formControls['valorInicial'].invalid && formControls['valorInicial'].touched) {
+            @if (formControls['valorInicial'].errors?.['required']) {
+              <span>O valor inicial é obrigatório</span>
+            }
+            @if (formControls['valorInicial'].errors?.['min']) {
+              <span>O valor deve ser maior ou igual a 0</span>
+            }
+          }
+        </div>
+      </div>
 
-  <p>Contador: {{ novoValor() }}</p>
+      <!-- Campo Passo do Incremento -->
+      <div class="space-y-2">
+        <label for="passo" class="block text-sm font-medium text-gray-700">Passo do Incremento/Decremento:</label>
+        <input 
+          id="passo"
+          type="number" 
+          formControlName="passo"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="1"
+        />
+        <div class="text-red-500 text-sm">
+          @if (formControls['passo'].invalid && formControls['passo'].touched) {
+            @if (formControls['passo'].errors?.['required']) {
+              <span>O passo é obrigatório</span>
+            }
+            @if (formControls['passo'].errors?.['min']) {
+              <span>O passo deve ser maior ou igual a 1</span>
+            }
+          }
+        </div>
+      </div>
 
-  <hr/>
-  <form-builder />
-  <hr/>
-  <validation-form />
-  <hr/>
-  <form-custom-validation />
+      <!-- Botão de Aplicar -->
+      <button 
+        type="submit"
+        [disabled]="contadorForm.invalid"
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      >
+        Aplicar Configurações
+      </button>
+    </form>
+    
+    <!-- -->
+    <div class="text-center">
+      <app-contador [(initialCount)]="count" [step]="passoIncremento()" (change)="updateStatus($event)" />
+    </div>
 
+    <p class="text-center text-lg font-semibold text-blue-600">{{ status() }}</p>
+
+    <!-- <p class="text-center text-gray-700">Contador: {{ novoValor() }}</p> -->
+
+    <!-- <hr /> -->
+
+    <!-- 
+      <hr class="border-gray-300"/>
+      <form-builder />
+      <hr class="border-gray-300"/>
+      <validation-form />
+      <hr class="border-gray-300"/>
+      <form-custom-validation />
+    -->
+  </div>
 </main>
