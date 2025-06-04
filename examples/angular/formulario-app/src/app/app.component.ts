@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { ReactiveFormsModule, FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormControl, FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +28,8 @@ export class AppComponent {
   formBuilder = inject(FormBuilder);
 
   userFormBuilder = this.formBuilder.group({
-    nameBuilder: ['', Validators.required],
+    nameBuilder: ['', [Validators.required, 
+      Validators.minLength(3), nameValidator('abd')]],
     ageBuilder: 
       [0, [Validators.min(18), Validators.max(150)] ],
     emailBuilder: [''],
@@ -40,5 +41,17 @@ export class AppComponent {
     // console.log(this.idade.value);
 
     console.log(this.userFormBuilder.value);
+  }
+}
+
+export function nameValidator(strRegex : string) : ValidatorFn {
+  return (formControl: AbstractControl): ValidationErrors | null => {
+    const name = formControl.value;
+
+    if(name.includes(strRegex)) {
+      return { nameValidator: true };
+    }
+    
+    return null;
   }
 }

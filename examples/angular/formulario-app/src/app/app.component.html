@@ -1,6 +1,12 @@
 <style>
-  input, button {
+  input,
+  button {
     margin-top: 10px;
+  }
+
+  span {
+    margin-left: 5px;
+    color: red;
   }
 </style>
 
@@ -9,9 +15,31 @@
   <form [formGroup]="userFormBuilder" (ngSubmit)="handleSubmit()">
     <div>
       <input type="text" placeholder="Nome" formControlName="nameBuilder">
+
+      @if(userFormBuilder.get('nameBuilder')?.touched){
+        @if(userFormBuilder.get('nameBuilder')?.hasError('required')) {
+          <span>* Campo obrigatório</span>
+        } @else if(userFormBuilder.get('nameBuilder')?.hasError('minlength')){
+          <span>* Digite pelo menos 3 caracteres</span>
+        } @else if(userFormBuilder.get('nameBuilder')?.hasError('nameValidator')) {
+          <span>* Sequência 'abc' inválida no nome!</span>
+        }
+      }
+
     </div>
     <div>
       <input type="text" placeholder="Idade" formControlName="ageBuilder">
+
+      @if(userFormBuilder.get('ageBuilder')?.touched) {
+        @if(
+          userFormBuilder.get('ageBuilder')?.hasError('min')
+          ||
+          userFormBuilder.get('ageBuilder')?.hasError('max')
+        ){
+          <span>* Intervalo válido (18 a 150 anos)</span>
+        }
+      }
+      
     </div>
     <div>
       <input type="text" placeholder="E-mail" formControlName="emailBuilder">
@@ -20,10 +48,7 @@
       <input type="text" placeholder="CPF (000.000.000-00)" formControlName="cpfBuilder">
     </div>
     <div>
-      <button 
-        type="submit" 
-        
-        [disabled]="userFormBuilder.status === 'INVALID' ? true : false ">Enviar!</button>
+      <button type="submit" [disabled]="userFormBuilder.status === 'INVALID' ? true : false ">Enviar!</button>
     </div>
   </form>
   <hr />
