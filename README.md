@@ -10,3 +10,4 @@
 9. [Angular - Componentes](./classes/9_componentes/README.md)
 10. [Angular - Templates](./classes/10_templates/README.md)
 11. [Angular - Formulários](./classes/11_forms/README.md)
+12. [Angular - HTTP Client](./classes/12_angular_http_client/README.md)
