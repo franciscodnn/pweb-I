@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 6 - Angular Overview</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #dd0031;
+            border-bottom: 3px solid #dd0031;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #c3002f;
+            margin-top: 30px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .angular-example {
+            background-color: #ffeef0;
+            border: 1px solid #dd0031;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .feature-card h3 {
+            color: #dd0031;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="../../README.md">← Voltar ao índice principal</a>
+        </div>
+        
+        <h1>Aula 6 - Angular Overview</h1>
+        
+        <h2>📋 Tópicos desta aula</h2>
+        <ul>
+            <li>O que é Angular</li>
+            <li>Arquitetura do Angular</li>
+            <li>Principais conceitos</li>
+            <li>Vantagens e desvantagens</li>
+            <li>Comparação com outros frameworks</li>
+            <li>Instalação e setup inicial</li>
+        </ul>
+
+        <h2>🚀 O que é Angular?</h2>
+        
+        <div class="angular-example">
+            <p>Angular é um <strong>framework</strong> de desenvolvimento web criado pelo Google para construir aplicações client-side robustas e escaláveis usando TypeScript.</p>
+        </div>
+
+        <h2>🏗️ Principais Características</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>📦 Componentes</h3>
+                <p>Arquitetura baseada em componentes reutilizáveis</p>
+            </div>
+            <div class="feature-card">
+                <h3>📝 TypeScript</h3>
+                <p>Suporte nativo ao TypeScript para tipagem estática</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔄 Data Binding</h3>
+                <p>Two-way data binding e interpolação de dados</p>
+            </div>
+            <div class="feature-card">
+                <h3>🛣️ Roteamento</h3>
+                <p>Sistema de roteamento para SPAs</p>
+            </div>
+            <div class="feature-card">
+                <h3>💉 Dependency Injection</h3>
+                <p>Sistema robusto de injeção de dependências</p>
+            </div>
+            <div class="feature-card">
+                <h3>🧪 Testing</h3>
+                <p>Ferramentas integradas para testes</p>
+            </div>
+        </div>
+
+        <h2>⚙️ Instalação</h2>
+        
+        <div class="angular-example">
+            <h3>Angular CLI</h3>
+            <pre><code># Instalar Angular CLI globalmente
+npm install -g @angular/cli
+
+# Criar novo projeto
+ng new meu-projeto
+
+# Servir aplicação
+ng serve</code></pre>
+        </div>
+
+        <h2>🏛️ Arquitetura</h2>
+        
+        <div class="angular-example">
+            <h3>Estrutura básica de um componente</h3>
+            <pre><code>@Component({
+  selector: 'app-exemplo',
+  templateUrl: './exemplo.component.html',
+  styleUrls: ['./exemplo.component.css']
+})
+export class ExemploComponent {
+  titulo = 'Meu Componente';
+  
+  onClick() {
+    console.log('Botão clicado!');
+  }
+}</code></pre>
+        </div>
+
+        <h2>✅ Vantagens</h2>
+        <ul>
+            <li><strong>Framework completo:</strong> Tudo que você precisa está incluído</li>
+            <li><strong>TypeScript nativo:</strong> Melhor IDE support e detecção de erros</li>
+            <li><strong>Arquitetura sólida:</strong> Padrões bem definidos</li>
+            <li><strong>Comunidade ativa:</strong> Suporte do Google e grande community</li>
+            <li><strong>Performance:</strong> Otimizações como Ahead-of-Time compilation</li>
+        </ul>
+
+        <h2>⚠️ Considerações</h2>
+        <ul>
+            <li><strong>Curva de aprendizado:</strong> Pode ser complexo para iniciantes</li>
+            <li><strong>Bundle size:</strong> Aplicações podem ser maiores</li>
+            <li><strong>Overhead:</strong> Pode ser excessivo para projetos simples</li>
+        </ul>
+
+        <div class="highlight">
+            <strong>💡 Dica:</strong> Angular é ideal para aplicações empresariais grandes e complexas que precisam de estrutura sólida e manutenibilidade a longo prazo.
+        </div>
+
+        <h2>🔗 Links úteis</h2>
+        <ul>
+            <li><a href="https://angular.io/" target="_blank">Site oficial do Angular</a></li>
+            <li><a href="https://angular.io/docs" target="_blank">Documentação oficial</a></li>
+            <li><a href="https://angular.io/cli" target="_blank">Angular CLI</a></li>
+        </ul>
+    </div>
+</body>
+</html>

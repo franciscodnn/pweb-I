@@ -1,0 +1,152 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Header -->
+  <header class="bg-white shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
+        <button 
+          (click)="openOffcanvas()"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+          Adicionar Usuário
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for(user of users(); track user.id) {
+      <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+              <span class="text-white font-bold text-lg">{{ user.nome.charAt(0).toUpperCase() }}</span>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">{{ user.nome }}</h3>
+              <p class="text-sm text-gray-500">ID: {{ user.id }}</p>
+            </div>
+          </div>
+          <button 
+            (click)="removeUser(user.id)"
+            class="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-full transition-colors"
+            title="Remover usuário">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <div class="space-y-2">
+          <div class="flex items-center space-x-2">
+            <span class="text-sm font-medium text-gray-600">Email:</span>
+            <span class="text-sm text-gray-900">{{ user.email }}</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="text-sm font-medium text-gray-600">Login:</span>
+            <span class="text-sm text-gray-900">{{ user.login }}</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <span class="text-sm font-medium text-gray-600">Senha:</span>
+            <span class="text-sm text-gray-900">{{ user.senha }}</span>
+          </div>
+        </div>
+      </div>
+      } @empty {
+      <div class="col-span-1 md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6 text-center">
+        <p class="text-gray-500">Nenhum usuário encontrado.</p>
+      </div>
+      }      
+    </div>
+  </main>
+
+  <!-- Offcanvas Overlay -->
+  <div 
+    *ngIf="isOffcanvasOpen"
+    class="fixed inset-0 bg-black bg-opacity-50 z-40"
+    (click)="closeOffcanvas()">
+  </div>
+
+  <!-- Offcanvas -->
+  <div 
+    class="fixed top-0 right-0 h-full w-96 bg-white shadow-xl transform transition-transform duration-300 z-50"
+    [class.translate-x-0]="isOffcanvasOpen"
+    [class.translate-x-full]="!isOffcanvasOpen">
+    
+    <!-- Offcanvas Header -->
+    <div class="flex items-center justify-between p-6 border-b">
+      <h2 class="text-xl font-semibold text-gray-900">Adicionar Novo Usuário</h2>
+      <button 
+        (click)="closeOffcanvas()"
+        class="text-gray-400 hover:text-gray-600 transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Offcanvas Content -->
+    <div class="p-6">
+      <form (ngSubmit)="addUser()" class="space-y-4">
+        <div>
+          <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
+          <input 
+            type="text" 
+            id="nome" 
+            [(ngModel)]="newUser.nome"
+            name="nome"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            [(ngModel)]="newUser.email"
+            name="email"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+
+        <div>
+          <label for="login" class="block text-sm font-medium text-gray-700 mb-1">Login</label>
+          <input 
+            type="text" 
+            id="login" 
+            [(ngModel)]="newUser.login"
+            name="login"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+
+        <div>
+          <label for="senha" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+          <input 
+            type="password" 
+            id="senha" 
+            [(ngModel)]="newUser.senha"
+            name="senha"
+            required
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        </div>
+
+        <div class="flex space-x-3 pt-4">
+          <button 
+            type="submit"
+            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition-colors">
+            Adicionar
+          </button>
+          <button 
+            type="button"
+            (click)="closeOffcanvas()"
+            class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 py-2 px-4 rounded-md font-medium transition-colors">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

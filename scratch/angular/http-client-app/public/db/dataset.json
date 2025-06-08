@@ -1,0 +1,11 @@
+{
+  "users": [
+    {
+      "id": "3",
+      "nome": "Pedro Oliveira",
+      "email": "pedro.oliveira@email.com",
+      "login": "pedro789",
+      "senha": "mypass"
+    }
+  ]
+}

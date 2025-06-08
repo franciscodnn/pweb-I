@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 12 - Angular HTTP Client</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 8px 16px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .topic {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .topic h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .topic h3 {
+            color: #34495e;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .topic h4 {
+            color: #5a6c7d;
+            margin-bottom: 0.6rem;
+            font-size: 1.2rem;
+        }
+
+        .topic p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .topic ul, .topic ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic li {
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+
+        .code-block code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin: 1rem 0;
+        }
+
+        .warning {
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.1), rgba(255, 138, 0, 0.1));
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+
+        .tip {
+            background: linear-gradient(45deg, rgba(40, 167, 69, 0.1), rgba(57, 181, 74, 0.1));
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 1rem 0;
+        }
+
+        .methods-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .methods-table th,
+        .methods-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .methods-table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .methods-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-code {
+            background: #e9ecef;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .status-2xx { background: #d4edda; color: #155724; }
+        .status-4xx { background: #f8d7da; color: #721c24; }
+        .status-5xx { background: #d1ecf1; color: #0c5460; }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 5px 0;
+            }
+
+            .code-block {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌐 Aula 12 - Angular HTTP Client</h1>
+            <p>Comunicação com APIs REST usando HttpClient</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="../index.html">🏠 Início</a>
+            <a href="../11_forms/index.html">← Aula 11</a>
+        </div>
+
+        <div class="content">
+            <div class="topic">
+                <h2>📡 Introdução ao HTTP Client</h2>
+                <p>
+                    O <strong>HttpClient</strong> é o serviço do Angular responsável por realizar comunicações HTTP 
+                    com APIs REST. Ele oferece uma interface simplificada para operações como GET, POST, PUT, DELETE, 
+                    além de recursos avançados como interceptadores, tratamento de erros e manipulação de headers.
+                </p>
+
+                <div class="highlight">
+                    <h4>📌 Características Principais</h4>
+                    <ul>
+                        <li><strong>Baseado em Observables:</strong> Permite programação reativa</li>
+                        <li><strong>Tipagem forte:</strong> Suporte completo ao TypeScript</li>
+                        <li><strong>Interceptadores:</strong> Para logging, autenticação e tratamento global</li>
+                        <li><strong>Tratamento de erros:</strong> Mecanismos robustos para lidar com falhas</li>
+                        <li><strong>Progress tracking:</strong> Monitoramento de upload/download</li>
+                    </ul>
+                </div>
+
+                <h3>Configuração Inicial</h3>
+                <div class="code-block">
+                    <code>
+// app.module.ts
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    // outros módulos...
+  ],
+  // ...
+})
+export class AppModule { }
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🔧 Métodos HTTP Básicos</h2>
+                <p>
+                    O HttpClient oferece métodos para todas as operações HTTP padrão.
+                </p>
+
+                <table class="methods-table">
+                    <thead>
+                        <tr>
+                            <th>Método</th>
+                            <th>Descrição</th>
+                            <th>Uso Comum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>GET</strong></td>
+                            <td>Buscar dados do servidor</td>
+                            <td>Listar recursos, obter detalhes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>POST</strong></td>
+                            <td>Criar novos recursos</td>
+                            <td>Cadastros, envio de formulários</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PUT</strong></td>
+                            <td>Atualizar recursos completos</td>
+                            <td>Edição completa de registros</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PATCH</strong></td>
+                            <td>Atualizar recursos parcialmente</td>
+                            <td>Edição de campos específicos</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DELETE</strong></td>
+                            <td>Remover recursos</td>
+                            <td>Exclusão de registros</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Exemplo Básico de Serviço</h3>
+                <div class="code-block">
+                    <code>
+// user.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+  phone?: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UserService {
+  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
+
+  constructor(private http: HttpClient) {}
+
+  // GET - Buscar todos os usuários
+  getUsers(): Observable&lt;User[]&gt; {
+    return this.http.get&lt;User[]&gt;(this.apiUrl)
+      .pipe(
+        retry(2), // Tenta novamente 2 vezes em caso de erro
+        catchError(this.handleError)
+      );
+  }
+
+  // GET - Buscar usuário por ID
+  getUserById(id: number): Observable&lt;User&gt; {
+    return this.http.get&lt;User&gt;(`${this.apiUrl}/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // POST - Criar novo usuário
+  createUser(user: Omit&lt;User, 'id'&gt;): Observable&lt;User&gt; {
+    return this.http.post&lt;User&gt;(this.apiUrl, user)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // PUT - Atualizar usuário completo
+  updateUser(user: User): Observable&lt;User&gt; {
+    return this.http.put&lt;User&gt;(`${this.apiUrl}/${user.id}`, user)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // PATCH - Atualizar usuário parcialmente
+  patchUser(id: number, updates: Partial&lt;User&gt;): Observable&lt;User&gt; {
+    return this.http.patch&lt;User&gt;(`${this.apiUrl}/${id}`, updates)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // DELETE - Remover usuário
+  deleteUser(id: number): Observable&lt;void&gt; {
+    return this.http.delete&lt;void&gt;(`${this.apiUrl}/${id}`)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // Tratamento de erros
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Erro desconhecido!';
+    
+    if (error.error instanceof ErrorEvent) {
+      // Erro do lado do cliente
+      errorMessage = `Erro: ${error.error.message}`;
+    } else {
+      // Erro do lado do servidor
+      errorMessage = `Código do erro: ${error.status}\nMensagem: ${error.message}`;
+    }
+    
+    console.error(errorMessage);
+    return throwError(() => errorMessage);
+  }
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🎯 Usando o Serviço no Componente</h2>
+                <p>
+                    Exemplo prático de como consumir o serviço em um componente.
+                </p>
+
+                <div class="code-block">
+                    <code>
+// user-list.component.ts
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService, User } from './user.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
+})
+export class UserListComponent implements OnInit, OnDestroy {
+  users: User[] = [];
+  loading = false;
+  error: string | null = null;
+  private destroy$ = new Subject&lt;void&gt;();
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.loadUsers();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  loadUsers() {
+    this.loading = true;
+    this.error = null;
+
+    this.userService.getUsers()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (users) => {
+          this.users = users;
+          this.loading = false;
+        },
+        error: (error) => {
+          this.error = error;
+          this.loading = false;
+          console.error('Erro ao carregar usuários:', error);
+        }
+      });
+  }
+
+  createUser(userData: Omit&lt;User, 'id'&gt;) {
+    this.loading = true;
+    
+    this.userService.createUser(userData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (newUser) => {
+          this.users.push(newUser);
+          this.loading = false;
+          console.log('Usuário criado:', newUser);
+        },
+        error: (error) => {
+          this.error = error;
+          this.loading = false;
+        }
+      });
+  }
+
+  updateUser(user: User) {
+    this.userService.updateUser(user)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (updatedUser) => {
+          const index = this.users.findIndex(u => u.id === updatedUser.id);
+          if (index !== -1) {
+            this.users[index] = updatedUser;
+          }
+          console.log('Usuário atualizado:', updatedUser);
+        },
+        error: (error) => {
+          this.error = error;
+        }
+      });
+  }
+
+  deleteUser(id: number) {
+    if (confirm('Tem certeza que deseja excluir este usuário?')) {
+      this.userService.deleteUser(id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: () => {
+            this.users = this.users.filter(user => user.id !== id);
+            console.log('Usuário excluído');
+          },
+          error: (error) => {
+            this.error = error;
+          }
+        });
+    }
+  }
+}
+                    </code>
+                </div>
+
+                <div class="code-block">
+                    <code>
+&lt;!-- user-list.component.html --&gt;
+&lt;div class="user-list"&gt;
+  &lt;h2&gt;Lista de Usuários&lt;/h2&gt;
+
+  &lt;!-- Loading --&gt;
+  &lt;div *ngIf="loading" class="loading"&gt;
+    Carregando usuários...
+  &lt;/div&gt;
+
+  &lt;!-- Error --&gt;
+  &lt;div *ngIf="error" class="error"&gt;
+    {{ error }}
+    &lt;button (click)="loadUsers()"&gt;Tentar Novamente&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Users List --&gt;
+  &lt;div *ngIf="!loading && !error" class="users"&gt;
+    &lt;div *ngFor="let user of users" class="user-card"&gt;
+      &lt;h3&gt;{{ user.name }}&lt;/h3&gt;
+      &lt;p&gt;Email: {{ user.email }}&lt;/p&gt;
+      &lt;p *ngIf="user.phone"&gt;Telefone: {{ user.phone }}&lt;/p&gt;
+      &lt;div class="actions"&gt;
+        &lt;button (click)="updateUser(user)" class="btn-edit"&gt;
+          Editar
+        &lt;/button&gt;
+        &lt;button (click)="deleteUser(user.id)" class="btn-delete"&gt;
+          Excluir
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;button (click)="loadUsers()" class="btn-refresh"&gt;
+    Atualizar Lista
+  &lt;/button&gt;
+&lt;/div&gt;
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🔐 Headers e Autenticação</h2>
+                <p>
+                    Configurando headers HTTP para autenticação e outras necessidades.
+                </p>
+
+                <div class="code-block">
+                    <code>
+// auth.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+  };
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private apiUrl = 'https://api.exemplo.com';
+  private tokenSubject = new BehaviorSubject&lt;string | null&gt;(null);
+
+  constructor(private http: HttpClient) {
+    // Carrega token do localStorage na inicialização
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      this.tokenSubject.next(token);
+    }
+  }
+
+  login(credentials: LoginCredentials): Observable&lt;AuthResponse&gt; {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.post&lt;AuthResponse&gt;(`${this.apiUrl}/login`, credentials, { headers })
+      .pipe(
+        tap(response => {
+          // Salva token
+          localStorage.setItem('authToken', response.token);
+          this.tokenSubject.next(response.token);
+        })
+      );
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+    this.tokenSubject.next(null);
+  }
+
+  getToken(): string | null {
+    return this.tokenSubject.value;
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
+
+  // Método para criar headers com autorização
+  getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+}
+                    </code>
+                </div>
+
+                <h3>Usando Headers Personalizados</h3>
+                <div class="code-block">
+                    <code>
+// protected.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProtectedService {
+  private apiUrl = 'https://api.exemplo.com';
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) {}
+
+  getProtectedData(): Observable&lt;any&gt; {
+    const headers = this.authService.getAuthHeaders();
+    
+    return this.http.get(`${this.apiUrl}/protected-data`, { headers });
+  }
+
+  uploadFile(file: File): Observable&lt;any&gt; {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Para upload de arquivos, não definir Content-Type
+    // O browser define automaticamente com boundary
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+
+    return this.http.post(`${this.apiUrl}/upload`, formData, { 
+      headers,
+      reportProgress: true, // Para tracking de progresso
+      observe: 'events'     // Para receber eventos de progresso
+    });
+  }
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🛡️ Interceptadores HTTP</h2>
+                <p>
+                    Os interceptadores permitem interceptar requisições e respostas HTTP para 
+                    adicionar funcionalidades como autenticação automática, logging e tratamento de erros.
+                </p>
+
+                <h3>Interceptador de Autenticação</h3>
+                <div class="code-block">
+                    <code>
+// auth.interceptor.ts
+import { Injectable } from '@angular/core';
+import { 
+  HttpInterceptor, 
+  HttpRequest, 
+  HttpHandler, 
+  HttpEvent 
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService) {}
+
+  intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt; {
+    // Adiciona token automaticamente se disponível
+    const token = this.authService.getToken();
+    
+    if (token) {
+      const authReq = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
+      });
+      return next.handle(authReq);
+    }
+
+    return next.handle(req);
+  }
+}
+                    </code>
+                </div>
+
+                <h3>Interceptador de Erro</h3>
+                <div class="code-block">
+                    <code>
+// error.interceptor.ts
+import { Injectable } from '@angular/core';
+import { 
+  HttpInterceptor, 
+  HttpRequest, 
+  HttpHandler, 
+  HttpEvent,
+  HttpErrorResponse 
+} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
+
+@Injectable()
+export class ErrorInterceptor implements HttpInterceptor {
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt; {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          // Token expirado ou inválido
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        } else if (error.status === 403) {
+          // Sem permissão
+          console.error('Acesso negado');
+        } else if (error.status === 500) {
+          // Erro interno do servidor
+          console.error('Erro interno do servidor');
+        }
+
+        return throwError(() => error);
+      })
+    );
+  }
+}
+                    </code>
+                </div>
+
+                <h3>Interceptador de Loading</h3>
+                <div class="code-block">
+                    <code>
+// loading.interceptor.ts
+import { Injectable } from '@angular/core';
+import { 
+  HttpInterceptor, 
+  HttpRequest, 
+  HttpHandler, 
+  HttpEvent 
+} from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { LoadingService } from './loading.service';
+
+@Injectable()
+export class LoadingInterceptor implements HttpInterceptor {
+  constructor(private loadingService: LoadingService) {}
+
+  intercept(req: HttpRequest&lt;any&gt;, next: HttpHandler): Observable&lt;HttpEvent&lt;any&gt;&gt; {
+    // Inicia loading
+    this.loadingService.startLoading();
+
+    return next.handle(req).pipe(
+      finalize(() => {
+        // Para loading quando a requisição termina
+        this.loadingService.stopLoading();
+      })
+    );
+  }
+}
+                    </code>
+                </div>
+
+                <h3>Registrando Interceptadores</h3>
+                <div class="code-block">
+                    <code>
+// app.module.ts
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+import { ErrorInterceptor } from './error.interceptor';
+import { LoadingInterceptor } from './loading.interceptor';
+
+@NgModule({
+  // ...
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true
+    }
+  ]
+})
+export class AppModule { }
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>📤 Upload e Download de Arquivos</h2>
+                <p>
+                    Implementando upload e download de arquivos com tracking de progresso.
+                </p>
+
+                <h3>Upload com Progress Tracking</h3>
+                <div class="code-block">
+                    <code>
+// file-upload.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpEventType, HttpEvent } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+export interface UploadProgress {
+  progress: number;
+  uploaded: boolean;
+  error?: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FileUploadService {
+  private apiUrl = 'https://api.exemplo.com';
+
+  constructor(private http: HttpClient) {}
+
+  uploadFile(file: File): Observable&lt;UploadProgress&gt; {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(`${this.apiUrl}/upload`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      map((event: HttpEvent&lt;any&gt;) => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            const progress = Math.round(100 * event.loaded / (event.total || 1));
+            return { progress, uploaded: false };
+          
+          case HttpEventType.Response:
+            return { progress: 100, uploaded: true };
+          
+          default:
+            return { progress: 0, uploaded: false };
+        }
+      })
+    );
+  }
+
+  uploadMultipleFiles(files: File[]): Observable&lt;UploadProgress&gt; {
+    const formData = new FormData();
+    
+    files.forEach((file, index) => {
+      formData.append(`file${index}`, file);
+    });
+
+    return this.http.post(`${this.apiUrl}/upload-multiple`, formData, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
+      map((event: HttpEvent&lt;any&gt;) => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            const progress = Math.round(100 * event.loaded / (event.total || 1));
+            return { progress, uploaded: false };
+          
+          case HttpEventType.Response:
+            return { progress: 100, uploaded: true };
+          
+          default:
+            return { progress: 0, uploaded: false };
+        }
+      })
+    );
+  }
+}
+                    </code>
+                </div>
+
+                <h3>Componente de Upload</h3>
+                <div class="code-block">
+                    <code>
+// file-upload.component.ts
+import { Component } from '@angular/core';
+import { FileUploadService, UploadProgress } from './file-upload.service';
+
+@Component({
+  selector: 'app-file-upload',
+  templateUrl: './file-upload.component.html'
+})
+export class FileUploadComponent {
+  uploadProgress: UploadProgress | null = null;
+  selectedFile: File | null = null;
+
+  constructor(private fileUploadService: FileUploadService) {}
+
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      this.selectedFile = target.files[0];
+    }
+  }
+
+  uploadFile() {
+    if (!this.selectedFile) return;
+
+    this.fileUploadService.uploadFile(this.selectedFile)
+      .subscribe({
+        next: (progress) => {
+          this.uploadProgress = progress;
+          
+          if (progress.uploaded) {
+            console.log('Upload concluído!');
+          }
+        },
+        error: (error) => {
+          this.uploadProgress = { 
+            progress: 0, 
+            uploaded: false, 
+            error: 'Erro no upload' 
+          };
+          console.error('Erro no upload:', error);
+        }
+      });
+  }
+}
+                    </code>
+                </div>
+
+                <h3>Download de Arquivos</h3>
+                <div class="code-block">
+                    <code>
+// file-download.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FileDownloadService {
+  private apiUrl = 'https://api.exemplo.com';
+
+  constructor(private http: HttpClient) {}
+
+  downloadFile(fileId: string): Observable&lt;Blob&gt; {
+    return this.http.get(`${this.apiUrl}/download/${fileId}`, {
+      responseType: 'blob'
+    });
+  }
+
+  downloadAndSave(fileId: string, filename: string) {
+    this.downloadFile(fileId).subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    });
+  }
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🔄 Tratamento de Erros Avançado</h2>
+                <p>
+                    Estratégias robustas para lidar com diferentes tipos de erro.
+                </p>
+
+                <div class="highlight">
+                    <h4>📌 Códigos de Status HTTP Comuns</h4>
+                    <ul>
+                        <li><span class="status-code status-2xx">200</span> OK - Sucesso</li>
+                        <li><span class="status-code status-2xx">201</span> Created - Recurso criado</li>
+                        <li><span class="status-code status-4xx">400</span> Bad Request - Dados inválidos</li>
+                        <li><span class="status-code status-4xx">401</span> Unauthorized - Não autenticado</li>
+                        <li><span class="status-code status-4xx">403</span> Forbidden - Sem permissão</li>
+                        <li><span class="status-code status-4xx">404</span> Not Found - Recurso não encontrado</li>
+                        <li><span class="status-code status-5xx">500</span> Internal Server Error - Erro do servidor</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <code>
+// error-handler.service.ts
+import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+
+export interface ApiError {
+  message: string;
+  status: number;
+  timestamp: Date;
+  details?: any;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ErrorHandlerService {
+  
+  handleError(error: HttpErrorResponse): Observable&lt;never&gt; {
+    let apiError: ApiError;
+
+    if (error.error instanceof ErrorEvent) {
+      // Erro do lado do cliente ou rede
+      apiError = {
+        message: 'Erro de conexão. Verifique sua internet.',
+        status: 0,
+        timestamp: new Date(),
+        details: error.error.message
+      };
+    } else {
+      // Erro do lado do servidor
+      apiError = {
+        message: this.getErrorMessage(error.status),
+        status: error.status,
+        timestamp: new Date(),
+        details: error.error
+      };
+    }
+
+    // Log do erro
+    console.error('API Error:', apiError);
+
+    // Pode enviar erro para serviço de logging
+    this.logError(apiError);
+
+    return throwError(() => apiError);
+  }
+
+  private getErrorMessage(status: number): string {
+    switch (status) {
+      case 400:
+        return 'Dados enviados são inválidos.';
+      case 401:
+        return 'Você precisa fazer login para acessar este recurso.';
+      case 403:
+        return 'Você não tem permissão para acessar este recurso.';
+      case 404:
+        return 'Recurso não encontrado.';
+      case 422:
+        return 'Dados não puderam ser processados.';
+      case 500:
+        return 'Erro interno do servidor. Tente novamente mais tarde.';
+      case 503:
+        return 'Serviço temporariamente indisponível.';
+      default:
+        return 'Ocorreu um erro inesperado.';
+    }
+  }
+
+  private logError(error: ApiError) {
+    // Aqui você pode enviar o erro para um serviço de logging
+    // como Sentry, LogRocket, etc.
+    console.log('Logging error to external service:', error);
+  }
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🧪 Testando HTTP Services</h2>
+                <p>
+                    Como testar serviços que fazem chamadas HTTP usando HttpClientTestingModule.
+                </p>
+
+                <div class="code-block">
+                    <code>
+// user.service.spec.ts
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { UserService, User } from './user.service';
+
+describe('UserService', () => {
+  let service: UserService;
+  let httpMock: HttpTestingController;
+  
+  const mockUsers: User[] = [
+    { id: 1, name: 'João Silva', email: 'joao@email.com' },
+    { id: 2, name: 'Maria Santos', email: 'maria@email.com' }
+  ];
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [UserService]
+    });
+    
+    service = TestBed.inject(UserService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify(); // Verifica se não há requisições pendentes
+  });
+
+  it('should retrieve users', () => {
+    service.getUsers().subscribe(users => {
+      expect(users.length).toBe(2);
+      expect(users).toEqual(mockUsers);
+    });
+
+    const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/users');
+    expect(req.request.method).toBe('GET');
+    req.flush(mockUsers); // Simula resposta da API
+  });
+
+  it('should create user', () => {
+    const newUser = { name: 'Pedro Lima', email: 'pedro@email.com' };
+    const createdUser = { id: 3, ...newUser };
+
+    service.createUser(newUser).subscribe(user => {
+      expect(user).toEqual(createdUser);
+    });
+
+    const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/users');
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(newUser);
+    req.flush(createdUser);
+  });
+
+  it('should handle error', () => {
+    service.getUsers().subscribe({
+      next: () => fail('should have failed'),
+      error: (error) => {
+        expect(error).toBeTruthy();
+      }
+    });
+
+    const req = httpMock.expectOne('https://jsonplaceholder.typicode.com/users');
+    req.flush('Error', { status: 500, statusText: 'Server Error' });
+  });
+});
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>💡 Boas Práticas</h2>
+
+                <div class="tip">
+                    <h4>✅ Recomendações</h4>
+                    <ul>
+                        <li>Sempre use <strong>tipagem forte</strong> com interfaces TypeScript</li>
+                        <li>Implemente <strong>tratamento de erro</strong> robusto</li>
+                        <li>Use <strong>interceptadores</strong> para funcionalidades transversais</li>
+                        <li>Sempre faça <strong>unsubscribe</strong> de observables</li>
+                        <li>Use <strong>retry</strong> estratégico para requisições falharam</li>
+                        <li>Implemente <strong>loading states</strong> para melhor UX</li>
+                        <li>Configure <strong>timeouts</strong> adequados</li>
+                        <li>Use <strong>environment</strong> para URLs de API</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <h4>⚠️ Cuidados</h4>
+                    <ul>
+                        <li>Não exponha <strong>tokens</strong> ou credenciais no código</li>
+                        <li>Sempre valide dados no <strong>backend</strong> também</li>
+                        <li>Cuidado com <strong>CORS</strong> em desenvolvimento</li>
+                        <li>Não faça chamadas HTTP em <strong>loops</strong> sem controle</li>
+                        <li>Evite <strong>memory leaks</strong> com subscriptions</li>
+                    </ul>
+                </div>
+
+                <h3>Configuração de Environment</h3>
+                <div class="code-block">
+                    <code>
+// environment.ts
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api',
+  timeout: 30000
+};
+
+// environment.prod.ts
+export const environment = {
+  production: true,
+  apiUrl: 'https://api.meuapp.com',
+  timeout: 10000
+};
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🚀 Exemplo Completo: CRUD com HTTP</h2>
+                <p>
+                    Implementação completa de um CRUD usando Angular HTTP Client.
+                </p>
+
+                <div class="code-block">
+                    <code>
+// product.model.ts
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  imageUrl?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CreateProductRequest {
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  imageUrl?: string;
+}
+
+export interface UpdateProductRequest extends Partial&lt;CreateProductRequest&gt; {}
+                    </code>
+                </div>
+
+                <div class="code-block">
+                    <code>
+// product.service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../environments/environment';
+import { Product, CreateProductRequest, UpdateProductRequest } from './product.model';
+import { ErrorHandlerService } from './error-handler.service';
+
+export interface ProductSearchParams {
+  category?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface ProductListResponse {
+  products: Product[];
+  total: number;
+  page: number;
+  totalPages: number;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProductService {
+  private apiUrl = `${environment.apiUrl}/products`;
+
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService
+  ) {}
+
+  getProducts(params?: ProductSearchParams): Observable&lt;ProductListResponse&gt; {
+    let httpParams = new HttpParams();
+    
+    if (params) {
+      Object.keys(params).forEach(key => {
+        const value = params[key as keyof ProductSearchParams];
+        if (value !== undefined && value !== null) {
+          httpParams = httpParams.set(key, value.toString());
+        }
+      });
+    }
+
+    return this.http.get&lt;ProductListResponse&gt;(this.apiUrl, { params: httpParams })
+      .pipe(
+        retry(2),
+        catchError(this.errorHandler.handleError)
+      );
+  }
+
+  getProductById(id: number): Observable&lt;Product&gt; {
+    return this.http.get&lt;Product&gt;(`${this.apiUrl}/${id}`)
+      .pipe(
+        catchError(this.errorHandler.handleError)
+      );
+  }
+
+  createProduct(product: CreateProductRequest): Observable&lt;Product&gt; {
+    return this.http.post&lt;Product&gt;(this.apiUrl, product)
+      .pipe(
+        catchError(this.errorHandler.handleError)
+      );
+  }
+
+  updateProduct(id: number, updates: UpdateProductRequest): Observable&lt;Product&gt; {
+    return this.http.patch&lt;Product&gt;(`${this.apiUrl}/${id}`, updates)
+      .pipe(
+        catchError(this.errorHandler.handleError)
+      );
+  }
+
+  deleteProduct(id: number): Observable&lt;void&gt; {
+    return this.http.delete&lt;void&gt;(`${this.apiUrl}/${id}`)
+      .pipe(
+        catchError(this.errorHandler.handleError)
+      );
+  }
+
+  searchProducts(query: string): Observable&lt;Product[]&gt; {
+    const params = new HttpParams().set('search', query);
+    
+    return this.http.get&lt;Product[]&gt;(`${this.apiUrl}/search`, { params })
+      .pipe(
+        catchError(this.errorHandler.handleError)
+      );
+  }
+}
+                    </code>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

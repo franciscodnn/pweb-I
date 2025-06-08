@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 3 - Functions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .function-example {
+            background-color: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="../../README.md">← Voltar ao índice principal</a>
+        </div>
+        
+        <h1>Aula 3 - Functions</h1>
+        
+        <h2>📋 Tópicos desta aula</h2>
+        <ul>
+            <li>Declaração de funções</li>
+            <li>Parâmetros tipados</li>
+            <li>Tipo de retorno</li>
+            <li>Parâmetros opcionais</li>
+            <li>Parâmetros padrão</li>
+            <li>Rest Parameters</li>
+            <li>Arrow Functions</li>
+            <li>Overloads de função</li>
+        </ul>
+
+        <h2>🔧 Declaração Básica</h2>
+        
+        <div class="function-example">
+            <h3>Função com tipo de retorno</h3>
+            <pre><code>function somar(a: number, b: number): number {
+    return a + b;
+}</code></pre>
+        </div>
+
+        <div class="function-example">
+            <h3>Arrow Function</h3>
+            <pre><code>const multiplicar = (a: number, b: number): number => {
+    return a * b;
+};
+
+// Ou mais concisa
+const multiplicar = (a: number, b: number): number => a * b;</code></pre>
+        </div>
+
+        <h2>⚙️ Parâmetros Especiais</h2>
+        
+        <div class="function-example">
+            <h3>Parâmetros Opcionais</h3>
+            <pre><code>function cumprimentar(nome: string, sobrenome?: string): string {
+    if (sobrenome) {
+        return `Olá, ${nome} ${sobrenome}!`;
+    }
+    return `Olá, ${nome}!`;
+}</code></pre>
+        </div>
+
+        <div class="function-example">
+            <h3>Parâmetros Padrão</h3>
+            <pre><code>function criarUsuario(nome: string, idade: number = 18): object {
+    return { nome, idade };
+}</code></pre>
+        </div>
+
+        <div class="function-example">
+            <h3>Rest Parameters</h3>
+            <pre><code>function somarTodos(...numeros: number[]): number {
+    return numeros.reduce((sum, num) => sum + num, 0);
+}</code></pre>
+        </div>
+
+        <h2>🎯 Tipos de Função</h2>
+        <div class="function-example">
+            <pre><code>// Definindo tipo de função
+type OperacaoMatematica = (a: number, b: number) => number;
+
+const somar: OperacaoMatematica = (a, b) => a + b;
+const subtrair: OperacaoMatematica = (a, b) => a - b;</code></pre>
+        </div>
+
+        <div class="highlight">
+            <strong>💡 Dica:</strong> Sempre defina tipos para parâmetros e retorno das funções para aproveitar ao máximo o TypeScript.
+        </div>
+
+        <h2>🔗 Links úteis</h2>
+        <ul>
+            <li><a href="https://www.typescriptlang.org/docs/handbook/2/functions.html" target="_blank">TypeScript - Functions</a></li>
+            <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Functions" target="_blank">MDN - Functions</a></li>
+        </ul>
+    </div>
+</body>
+</html>

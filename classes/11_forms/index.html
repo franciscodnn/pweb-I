@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 11 - Formulários em Angular</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 8px 16px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .topic {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .topic h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .topic h3 {
+            color: #34495e;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .topic h4 {
+            color: #5a6c7d;
+            margin-bottom: 0.6rem;
+            font-size: 1.2rem;
+        }
+
+        .topic p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .topic ul, .topic ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic li {
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border-left: 4px solid #667eea;
+        }
+
+        .code-block code {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin: 1rem 0;
+        }
+
+        .warning {
+            background: linear-gradient(45deg, rgba(255, 193, 7, 0.1), rgba(255, 138, 0, 0.1));
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 1rem 0;
+        }
+
+        .tip {
+            background: linear-gradient(45deg, rgba(40, 167, 69, 0.1), rgba(57, 181, 74, 0.1));
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 1rem 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 5px 0;
+            }
+
+            .code-block {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 Aula 11 - Formulários em Angular</h1>
+            <p>Aprendendo sobre Template-driven Forms e Reactive Forms</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="../index.html">🏠 Início</a>
+            <a href="../10_templates/index.html">← Aula 10</a>
+            <a href="../12_angular_http_client/index.html">Aula 12 →</a>
+        </div>
+
+        <div class="content">
+            <div class="topic">
+                <h2>📋 Introdução aos Formulários em Angular</h2>
+                <p>
+                    O Angular oferece duas abordagens principais para trabalhar com formulários:
+                </p>
+                <ul>
+                    <li><strong>Template-driven Forms:</strong> Abordagem declarativa usando diretivas no template</li>
+                    <li><strong>Reactive Forms:</strong> Abordagem programática usando FormControl, FormGroup e FormBuilder</li>
+                </ul>
+
+                <div class="highlight">
+                    <h4>📌 Conceitos Fundamentais</h4>
+                    <ul>
+                        <li><strong>FormControl:</strong> Representa um campo individual do formulário</li>
+                        <li><strong>FormGroup:</strong> Agrupa vários FormControls</li>
+                        <li><strong>FormArray:</strong> Array de FormControls ou FormGroups</li>
+                        <li><strong>Validators:</strong> Funções para validação de dados</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🎯 Template-driven Forms</h2>
+                <p>
+                    Os Template-driven Forms são baseados em diretivas do Angular e são mais simples de implementar, 
+                    mas oferecem menos controle programático.
+                </p>
+
+                <h3>Configuração Básica</h3>
+                <div class="code-block">
+                    <code>
+// app.module.ts
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [FormsModule],
+  // ...
+})
+export class AppModule { }
+                    </code>
+                </div>
+
+                <h3>Exemplo Prático</h3>
+                <div class="code-block">
+                    <code>
+// usuario-form.component.html
+&lt;form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"&gt;
+  &lt;div&gt;
+    &lt;label for="nome"&gt;Nome:&lt;/label&gt;
+    &lt;input 
+      type="text" 
+      id="nome" 
+      name="nome" 
+      [(ngModel)]="usuario.nome"
+      #nome="ngModel"
+      required
+      minlength="2"&gt;
+    &lt;div *ngIf="nome.invalid && nome.touched" class="error"&gt;
+      &lt;span *ngIf="nome.errors?.['required']"&gt;Nome é obrigatório&lt;/span&gt;
+      &lt;span *ngIf="nome.errors?.['minlength']"&gt;Nome deve ter pelo menos 2 caracteres&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input 
+      type="email" 
+      id="email" 
+      name="email" 
+      [(ngModel)]="usuario.email"
+      #email="ngModel"
+      required
+      email&gt;
+    &lt;div *ngIf="email.invalid && email.touched" class="error"&gt;
+      &lt;span *ngIf="email.errors?.['required']"&gt;Email é obrigatório&lt;/span&gt;
+      &lt;span *ngIf="email.errors?.['email']"&gt;Email inválido&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit" [disabled]="userForm.invalid"&gt;Salvar&lt;/button&gt;
+&lt;/form&gt;
+                    </code>
+                </div>
+
+                <div class="code-block">
+                    <code>
+// usuario-form.component.ts
+export class UsuarioFormComponent {
+  usuario = {
+    nome: '',
+    email: ''
+  };
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      console.log('Dados do formulário:', this.usuario);
+      // Processar dados
+    }
+  }
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>⚡ Reactive Forms</h2>
+                <p>
+                    Os Reactive Forms oferecem maior controle programático, melhor testabilidade e 
+                    validações mais complexas.
+                </p>
+
+                <h3>Configuração</h3>
+                <div class="code-block">
+                    <code>
+// app.module.ts
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  imports: [ReactiveFormsModule],
+  // ...
+})
+export class AppModule { }
+                    </code>
+                </div>
+
+                <h3>Exemplo com FormBuilder</h3>
+                <div class="code-block">
+                    <code>
+// usuario-reactive-form.component.ts
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-usuario-reactive-form',
+  templateUrl: './usuario-reactive-form.component.html'
+})
+export class UsuarioReactiveFormComponent implements OnInit {
+  userForm!: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.userForm = this.fb.group({
+      nome: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      idade: ['', [Validators.required, Validators.min(18)]],
+      endereco: this.fb.group({
+        rua: ['', Validators.required],
+        cidade: ['', Validators.required],
+        cep: ['', [Validators.required, Validators.pattern(/^\d{5}-?\d{3}$/)]]
+      })
+    });
+  }
+
+  onSubmit() {
+    if (this.userForm.valid) {
+      console.log('Dados:', this.userForm.value);
+      // Processar dados
+    } else {
+      this.markFormGroupTouched(this.userForm);
+    }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      control?.markAsTouched({ onlySelf: true });
+      
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  // Getters para facilitar acesso aos controles
+  get nome() { return this.userForm.get('nome'); }
+  get email() { return this.userForm.get('email'); }
+  get idade() { return this.userForm.get('idade'); }
+  get endereco() { return this.userForm.get('endereco'); }
+}
+                    </code>
+                </div>
+
+                <div class="code-block">
+                    <code>
+&lt;!-- usuario-reactive-form.component.html --&gt;
+&lt;form [formGroup]="userForm" (ngSubmit)="onSubmit()"&gt;
+  &lt;div&gt;
+    &lt;label for="nome"&gt;Nome:&lt;/label&gt;
+    &lt;input type="text" id="nome" formControlName="nome"&gt;
+    &lt;div *ngIf="nome?.invalid && nome?.touched" class="error"&gt;
+      &lt;span *ngIf="nome?.errors?.['required']"&gt;Nome é obrigatório&lt;/span&gt;
+      &lt;span *ngIf="nome?.errors?.['minlength']"&gt;Nome deve ter pelo menos 2 caracteres&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" formControlName="email"&gt;
+    &lt;div *ngIf="email?.invalid && email?.touched" class="error"&gt;
+      &lt;span *ngIf="email?.errors?.['required']"&gt;Email é obrigatório&lt;/span&gt;
+      &lt;span *ngIf="email?.errors?.['email']"&gt;Email inválido&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;label for="idade"&gt;Idade:&lt;/label&gt;
+    &lt;input type="number" id="idade" formControlName="idade"&gt;
+    &lt;div *ngIf="idade?.invalid && idade?.touched" class="error"&gt;
+      &lt;span *ngIf="idade?.errors?.['required']"&gt;Idade é obrigatória&lt;/span&gt;
+      &lt;span *ngIf="idade?.errors?.['min']"&gt;Idade mínima é 18 anos&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div formGroupName="endereco"&gt;
+    &lt;h3&gt;Endereço&lt;/h3&gt;
+    &lt;div&gt;
+      &lt;label for="rua"&gt;Rua:&lt;/label&gt;
+      &lt;input type="text" id="rua" formControlName="rua"&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;label for="cidade"&gt;Cidade:&lt;/label&gt;
+      &lt;input type="text" id="cidade" formControlName="cidade"&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+      &lt;label for="cep"&gt;CEP:&lt;/label&gt;
+      &lt;input type="text" id="cep" formControlName="cep"&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit" [disabled]="userForm.invalid"&gt;Salvar&lt;/button&gt;
+&lt;/form&gt;
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>✅ Validações Personalizadas</h2>
+                <p>
+                    Criando validadores customizados para atender necessidades específicas.
+                </p>
+
+                <h3>Validador Personalizado</h3>
+                <div class="code-block">
+                    <code>
+// validators/cpf.validator.ts
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+
+export function cpfValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const cpf = control.value;
+    
+    if (!cpf) {
+      return null; // Deixa para o required validar
+    }
+
+    // Remove caracteres não numéricos
+    const cpfLimpo = cpf.replace(/\D/g, '');
+    
+    if (cpfLimpo.length !== 11) {
+      return { cpfInvalido: true };
+    }
+
+    // Verifica se todos os dígitos são iguais
+    if (/^(\d)\1{10}$/.test(cpfLimpo)) {
+      return { cpfInvalido: true };
+    }
+
+    // Validação dos dígitos verificadores
+    let soma = 0;
+    for (let i = 0; i < 9; i++) {
+      soma += parseInt(cpfLimpo.charAt(i)) * (10 - i);
+    }
+    
+    let resto = 11 - (soma % 11);
+    let digitoVerificador1 = resto < 2 ? 0 : resto;
+    
+    if (parseInt(cpfLimpo.charAt(9)) !== digitoVerificador1) {
+      return { cpfInvalido: true };
+    }
+
+    soma = 0;
+    for (let i = 0; i < 10; i++) {
+      soma += parseInt(cpfLimpo.charAt(i)) * (11 - i);
+    }
+    
+    resto = 11 - (soma % 11);
+    let digitoVerificador2 = resto < 2 ? 0 : resto;
+    
+    if (parseInt(cpfLimpo.charAt(10)) !== digitoVerificador2) {
+      return { cpfInvalido: true };
+    }
+
+    return null; // CPF válido
+  };
+}
+                    </code>
+                </div>
+
+                <h3>Uso do Validador</h3>
+                <div class="code-block">
+                    <code>
+// Importando e usando o validador
+import { cpfValidator } from './validators/cpf.validator';
+
+ngOnInit() {
+  this.userForm = this.fb.group({
+    nome: ['', Validators.required],
+    cpf: ['', [Validators.required, cpfValidator()]],
+    email: ['', [Validators.required, Validators.email]]
+  });
+}
+                    </code>
+                </div>
+
+                <h3>Validador Assíncrono</h3>
+                <div class="code-block">
+                    <code>
+// validators/email-exists.validator.ts
+import { Injectable } from '@angular/core';
+import { AbstractControl, AsyncValidator, ValidationErrors } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map, catchError, delay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+
+@Injectable({ providedIn: 'root' })
+export class EmailExistsValidator implements AsyncValidator {
+  constructor(private http: HttpClient) {}
+
+  validate(control: AbstractControl): Observable&lt;ValidationErrors | null&gt; {
+    if (!control.value) {
+      return of(null);
+    }
+
+    return this.http.get&lt;{exists: boolean}&gt;(`/api/check-email/${control.value}`)
+      .pipe(
+        delay(1000), // Simula delay de rede
+        map(result => result.exists ? { emailExists: true } : null),
+        catchError(() => of(null))
+      );
+  }
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>📊 FormArray - Arrays Dinâmicos</h2>
+                <p>
+                    Usando FormArray para criar formulários com campos dinâmicos.
+                </p>
+
+                <div class="code-block">
+                    <code>
+// skills-form.component.ts
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-skills-form',
+  templateUrl: './skills-form.component.html'
+})
+export class SkillsFormComponent implements OnInit {
+  skillsForm!: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.skillsForm = this.fb.group({
+      nome: ['', Validators.required],
+      skills: this.fb.array([
+        this.createSkillFormGroup()
+      ])
+    });
+  }
+
+  get skills() {
+    return this.skillsForm.get('skills') as FormArray;
+  }
+
+  createSkillFormGroup(): FormGroup {
+    return this.fb.group({
+      nome: ['', Validators.required],
+      nivel: ['', Validators.required],
+      anos: ['', [Validators.required, Validators.min(0)]]
+    });
+  }
+
+  addSkill() {
+    this.skills.push(this.createSkillFormGroup());
+  }
+
+  removeSkill(index: number) {
+    this.skills.removeAt(index);
+  }
+
+  onSubmit() {
+    if (this.skillsForm.valid) {
+      console.log('Skills:', this.skillsForm.value);
+    }
+  }
+}
+                    </code>
+                </div>
+
+                <div class="code-block">
+                    <code>
+&lt;!-- skills-form.component.html --&gt;
+&lt;form [formGroup]="skillsForm" (ngSubmit)="onSubmit()"&gt;
+  &lt;div&gt;
+    &lt;label for="nome"&gt;Nome:&lt;/label&gt;
+    &lt;input type="text" id="nome" formControlName="nome"&gt;
+  &lt;/div&gt;
+
+  &lt;div formArrayName="skills"&gt;
+    &lt;h3&gt;Skills&lt;/h3&gt;
+    &lt;div *ngFor="let skill of skills.controls; let i = index" [formGroupName]="i" class="skill-group"&gt;
+      &lt;div&gt;
+        &lt;label&gt;Skill:&lt;/label&gt;
+        &lt;input type="text" formControlName="nome"&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;Nível:&lt;/label&gt;
+        &lt;select formControlName="nivel"&gt;
+          &lt;option value=""&gt;Selecione&lt;/option&gt;
+          &lt;option value="iniciante"&gt;Iniciante&lt;/option&gt;
+          &lt;option value="intermediario"&gt;Intermediário&lt;/option&gt;
+          &lt;option value="avancado"&gt;Avançado&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;label&gt;Anos de experiência:&lt;/label&gt;
+        &lt;input type="number" formControlName="anos"&gt;
+      &lt;/div&gt;
+      &lt;button type="button" (click)="removeSkill(i)" *ngIf="skills.length > 1"&gt;
+        Remover
+      &lt;/button&gt;
+    &lt;/div&gt;
+    &lt;button type="button" (click)="addSkill()"&gt;Adicionar Skill&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;button type="submit" [disabled]="skillsForm.invalid"&gt;Salvar&lt;/button&gt;
+&lt;/form&gt;
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🔄 Estados do Formulário</h2>
+                <p>
+                    Compreendendo e utilizando os diferentes estados dos formulários.
+                </p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Descrição</th>
+                            <th>Verificação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>valid/invalid</strong></td>
+                            <td>Se o formulário passou em todas as validações</td>
+                            <td><code>form.valid</code> / <code>form.invalid</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>touched/untouched</strong></td>
+                            <td>Se o usuário interagiu com o campo</td>
+                            <td><code>control.touched</code> / <code>control.untouched</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>dirty/pristine</strong></td>
+                            <td>Se o valor do campo foi alterado</td>
+                            <td><code>control.dirty</code> / <code>control.pristine</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>pending</strong></td>
+                            <td>Validação assíncrona em andamento</td>
+                            <td><code>control.pending</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Exemplo de Uso dos Estados</h3>
+                <div class="code-block">
+                    <code>
+&lt;!-- Mostra erro apenas se o campo foi tocado e é inválido --&gt;
+&lt;div *ngIf="nome?.invalid && nome?.touched" class="error"&gt;
+  &lt;span *ngIf="nome?.errors?.['required']"&gt;Nome é obrigatório&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;!-- Mostra ícone de carregamento durante validação assíncrona --&gt;
+&lt;span *ngIf="email?.pending" class="loading"&gt;Verificando...&lt;/span&gt;
+
+&lt;!-- Desabilita botão se formulário inválido ou não foi alterado --&gt;
+&lt;button [disabled]="userForm.invalid || userForm.pristine"&gt;
+  Salvar Alterações
+&lt;/button&gt;
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🎨 Estilização de Formulários</h2>
+                <p>
+                    Aplicando estilos dinâmicos baseados no estado dos formulários.
+                </p>
+
+                <div class="code-block">
+                    <code>
+/* styles.css - Classes automáticas do Angular */
+.ng-valid {
+  border-left: 5px solid #42A948;
+}
+
+.ng-invalid.ng-touched {
+  border-left: 5px solid #a94442;
+}
+
+.ng-pending {
+  border-left: 5px solid #d58512;
+}
+
+/* Estilos personalizados */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.success-message {
+  color: #28a745;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>📚 Comparação: Template-driven vs Reactive</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Template-driven</th>
+                            <th>Reactive</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Configuração</strong></td>
+                            <td>FormsModule</td>
+                            <td>ReactiveFormsModule</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Modelo de dados</strong></td>
+                            <td>Não estruturado (mutável)</td>
+                            <td>Estruturado (imutável)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Previsibilidade</strong></td>
+                            <td>Assíncrona</td>
+                            <td>Síncrona</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Validação</strong></td>
+                            <td>Diretivas no template</td>
+                            <td>Funções no componente</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mutabilidade</strong></td>
+                            <td>Mutável</td>
+                            <td>Imutável</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Escalabilidade</strong></td>
+                            <td>Baixa</td>
+                            <td>Alta</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Testabilidade</strong></td>
+                            <td>Difícil</td>
+                            <td>Fácil</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="topic">
+                <h2>💡 Boas Práticas</h2>
+
+                <div class="tip">
+                    <h4>✅ Dicas Importantes</h4>
+                    <ul>
+                        <li>Use <strong>Reactive Forms</strong> para formulários complexos</li>
+                        <li>Use <strong>Template-driven</strong> para formulários simples</li>
+                        <li>Sempre valide dados no <strong>frontend e backend</strong></li>
+                        <li>Implemente <strong>feedback visual</strong> para o usuário</li>
+                        <li>Use <strong>getters</strong> para facilitar acesso aos controles</li>
+                        <li>Implemente <strong>loading states</strong> durante submissão</li>
+                        <li>Mantenha formulários <strong>acessíveis</strong> (labels, ARIA)</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <h4>⚠️ Cuidados</h4>
+                    <ul>
+                        <li>Não misture Template-driven com Reactive Forms</li>
+                        <li>Evite validações complexas no template</li>
+                        <li>Sempre unsubscribe de observables</li>
+                        <li>Cuidado com performance em FormArrays grandes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>🚀 Exemplo Completo: Formulário de Cadastro</h2>
+                <p>
+                    Implementação completa de um formulário com todas as funcionalidades.
+                </p>
+
+                <div class="code-block">
+                    <code>
+// cadastro.component.ts
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { cpfValidator } from './validators/cpf.validator';
+
+@Component({
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html',
+  styleUrls: ['./cadastro.component.css']
+})
+export class CadastroComponent implements OnInit {
+  cadastroForm!: FormGroup;
+  isSubmitting = false;
+  submitSuccess = false;
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.createForm();
+  }
+
+  createForm() {
+    this.cadastroForm = this.fb.group({
+      dadosPessoais: this.fb.group({
+        nome: ['', [Validators.required, Validators.minLength(2)]],
+        cpf: ['', [Validators.required, cpfValidator()]],
+        dataNascimento: ['', Validators.required],
+        telefone: ['', Validators.required]
+      }),
+      endereco: this.fb.group({
+        cep: ['', [Validators.required, Validators.pattern(/^\d{5}-?\d{3}$/)]],
+        rua: ['', Validators.required],
+        numero: ['', Validators.required],
+        complemento: [''],
+        bairro: ['', Validators.required],
+        cidade: ['', Validators.required],
+        estado: ['', Validators.required]
+      }),
+      login: this.fb.group({
+        email: ['', [Validators.required, Validators.email]],
+        senha: ['', [Validators.required, Validators.minLength(8)]],
+        confirmarSenha: ['', Validators.required]
+      }, { validators: this.senhasIguaisValidator })
+    });
+  }
+
+  senhasIguaisValidator(group: FormGroup) {
+    const senha = group.get('senha')?.value;
+    const confirmarSenha = group.get('confirmarSenha')?.value;
+    return senha === confirmarSenha ? null : { senhasDiferentes: true };
+  }
+
+  async onSubmit() {
+    if (this.cadastroForm.valid) {
+      this.isSubmitting = true;
+      try {
+        // Simula envio para API
+        await this.enviarCadastro(this.cadastroForm.value);
+        this.submitSuccess = true;
+        this.cadastroForm.reset();
+      } catch (error) {
+        console.error('Erro ao cadastrar:', error);
+      } finally {
+        this.isSubmitting = false;
+      }
+    } else {
+      this.markFormGroupTouched(this.cadastroForm);
+    }
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      control?.markAsTouched({ onlySelf: true });
+      
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  private enviarCadastro(dados: any): Promise&lt;any&gt; {
+    return new Promise(resolve => {
+      setTimeout(() => resolve(dados), 2000);
+    });
+  }
+
+  // Getters para facilitar acesso
+  get dadosPessoais() { return this.cadastroForm.get('dadosPessoais'); }
+  get endereco() { return this.cadastroForm.get('endereco'); }
+  get login() { return this.cadastroForm.get('login'); }
+}
+                    </code>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 10 - Templates no Angular v19</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+
+        .content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .topic {
+            margin-bottom: 3rem;
+        }
+
+        .topic h2 {
+            color: #495057;
+            border-bottom: 3px solid #6f42c1;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .topic h3 {
+            color: #6c757d;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .topic h4 {
+            color: #6f42c1;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border-left: 4px solid #6f42c1;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .highlight-box {
+            background-color: #f3e5f5;
+            border-left: 4px solid #6f42c1;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .example-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .example-card h4 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h3 {
+            color: #6f42c1;
+            margin-bottom: 1rem;
+        }
+
+        .best-practices {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .best-practices h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .tips {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tips strong {
+            color: #856404;
+        }
+
+        .new-feature {
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .new-feature h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .binding-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .binding-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .binding-card h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links a {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Aula 10 - Templates no Angular v19</h1>
+            <p>HTML dinâmico com sintaxe específica do Angular</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="../../README.md">🏠 Voltar ao Índice</a>
+            <a href="../9_componentes/">⬅️ Aula Anterior</a>
+            <a href="../11_forms/">➡️ Próxima Aula</a>
+        </div>
+
+        <div class="content">
+            <div class="topic">
+                <h2>1. Introdução aos Templates</h2>
+                <p>Os templates no Angular são arquivos HTML que definem a interface do usuário de um componente. Eles combinam HTML tradicional com sintaxe específica do Angular para criar interfaces dinâmicas e reativas.</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📝 HTML Válido</h3>
+                        <p>Com extensões específicas do Angular</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔄 Interpolação</h3>
+                        <p>Para exibir dados dinamicamente</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Property Binding</h3>
+                        <p>Para controlar propriedades de elementos</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚡ Event Binding</h3>
+                        <p>Para responder a interações do usuário</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔀 Diretivas Estruturais</h3>
+                        <p>Para controle de fluxo (@if, @for, @switch)</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔧 Pipes</h3>
+                        <p>Para transformar dados antes da exibição</p>
+                    </div>
+                </div>
+
+                <h3>Template básico:</h3>
+                <div class="code-block">
+                    <pre>
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-exemplo-basico',
+  standalone: true,
+  template: `
+    &lt;div&gt;
+      &lt;h1&gt;{{ titulo() }}&lt;/h1&gt;
+      &lt;p&gt;Bem-vindo, {{ usuario().nome }}!&lt;/p&gt;
+      &lt;p&gt;Data atual: {{ dataAtual | date:'dd/MM/yyyy' }}&lt;/p&gt;
+    &lt;/div&gt;
+  `
+})
+export class ExemploBasicoComponent {
+  titulo = signal('Minha Aplicação Angular v19');
+  usuario = signal({ nome: 'João Silva', idade: 30 });
+  dataAtual = new Date();
+}
+                    </pre>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>2. Data Binding (Vinculação de Dados)</h2>
+                <p>O Angular oferece diferentes tipos de binding para conectar o template com a lógica do componente.</p>
+
+                <div class="binding-types">
+                    <div class="binding-card">
+                        <h4>{{ }} Interpolação</h4>
+                        <p>Exibe valores do componente</p>
+                    </div>
+                    <div class="binding-card">
+                        <h4>[prop] Property Binding</h4>
+                        <p>Define propriedades de elementos</p>
+                    </div>
+                    <div class="binding-card">
+                        <h4>(event) Event Binding</h4>
+                        <p>Responde a eventos do usuário</p>
+                    </div>
+                    <div class="binding-card">
+                        <h4>[(ngModel)] Two-way</h4>
+                        <p>Sincronização bidirecional</p>
+                    </div>
+                </div>
+
+                <h3>2.1 Interpolação ({{ }})</h3>
+                <p>A interpolação permite exibir valores de propriedades do componente no template:</p>
+
+                <div class="example-card">
+                    <h4>Exemplos de interpolação:</h4>
+                    <div class="code-block">
+                        <pre>
+import { Component, signal, computed } from '@angular/core';
+
+@Component({
+  selector: 'app-interpolacao',
+  standalone: true,
+  template: `
+    &lt;div&gt;
+      &lt;h2&gt;Exemplos de Interpolação&lt;/h2&gt;
+      
+      &lt;!-- Interpolação simples --&gt;
+      &lt;p&gt;Nome: {{ nome() }}&lt;/p&gt;
+      &lt;p&gt;Idade: {{ idade() }}&lt;/p&gt;
+      
+      &lt;!-- Expressões --&gt;
+      &lt;p&gt;Ano de nascimento: {{ 2024 - idade() }}&lt;/p&gt;
+      &lt;p&gt;Nome em maiúsculas: {{ nome().toUpperCase() }}&lt;/p&gt;
+      
+      &lt;!-- Computed signals --&gt;
+      &lt;p&gt;Saudação: {{ saudacao() }}&lt;/p&gt;
+      
+      &lt;!-- Operador ternário --&gt;
+      &lt;p&gt;Status: {{ idade() &gt;= 18 ? 'Adulto' : 'Menor de idade' }}&lt;/p&gt;
+      
+      &lt;!-- Chamada de método --&gt;
+      &lt;p&gt;Data formatada: {{ obterDataFormatada() }}&lt;/p&gt;
+    &lt;/div&gt;
+  `
+})
+export class InterpolacaoComponent {
+  nome = signal('Maria Santos');
+  idade = signal(25);
+  
+  saudacao = computed(() =&gt; `Olá, ${this.nome()}! Você tem ${this.idade()} anos.`);
+  
+  obterDataFormatada(): string {
+    return new Date().toLocaleDateString('pt-BR');
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>2.2 Property Binding ([propriedade])</h3>
+                <p>O property binding permite definir valores de propriedades de elementos HTML ou componentes:</p>
+
+                <div class="example-card">
+                    <h4>Exemplos de property binding:</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: 'app-property-binding',
+  standalone: true,
+  template: `
+    &lt;div&gt;
+      &lt;h2&gt;Exemplos de Property Binding&lt;/h2&gt;
+      
+      &lt;!-- Binding de atributos HTML --&gt;
+      &lt;img [src]="imagemUrl()" [alt]="imagemAlt()" [width]="larguraImagem()"&gt;
+      
+      &lt;!-- Binding de propriedades --&gt;
+      &lt;input [value]="textoInput()" [disabled]="inputDesabilitado()"&gt;
+      
+      &lt;!-- Binding de classes CSS --&gt;
+      &lt;div [class.ativo]="estaAtivo()" [class.destaque]="temDestaque()"&gt;
+        Status do elemento
+      &lt;/div&gt;
+      
+      &lt;!-- Binding de estilos --&gt;
+      &lt;div [style.background-color]="corFundo()" [style.padding.px]="espacamento()"&gt;
+        Elemento com estilo dinâmico
+      &lt;/div&gt;
+      
+      &lt;!-- Múltiplas classes --&gt;
+      &lt;div [class]="classesCSS()"&gt;Elemento com múltiplas classes&lt;/div&gt;
+      
+      &lt;!-- Controles de formulário --&gt;
+      &lt;button [disabled]="botaoDesabilitado()" (click)="alternarBotao()"&gt;
+        {{ botaoDesabilitado() ? 'Botão Desabilitado' : 'Botão Habilitado' }}
+      &lt;/button&gt;
+    &lt;/div&gt;
+  `
+})
+export class PropertyBindingComponent {
+  imagemUrl = signal('https://via.placeholder.com/200x150');
+  imagemAlt = signal('Imagem de exemplo');
+  larguraImagem = signal(200);
+  
+  textoInput = signal('Texto inicial');
+  inputDesabilitado = signal(false);
+  
+  estaAtivo = signal(true);
+  temDestaque = signal(false);
+  
+  corFundo = signal('#f0f0f0');
+  espacamento = signal(20);
+  
+  classesCSS = signal('botao-primario texto-grande');
+  botaoDesabilitado = signal(false);
+  
+  alternarBotao() {
+    this.botaoDesabilitado.update(valor =&gt; !valor);
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>2.3 Attribute Binding ([attr.atributo])</h3>
+                <p>Para definir atributos HTML que não têm propriedades correspondentes:</p>
+
+                <div class="example-card">
+                    <h4>Exemplos de attribute binding:</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  template: `
+    &lt;div&gt;
+      &lt;!-- Atributos de acessibilidade --&gt;
+      &lt;button [attr.aria-label]="botaoLabel()" [attr.aria-pressed]="botaoPressionado()"&gt;
+        {{ botaoTexto() }}
+      &lt;/button&gt;
+      
+      &lt;!-- Atributos data --&gt;
+      &lt;div [attr.data-id]="elementoId()" [attr.data-categoria]="categoria()"&gt;
+        Elemento com data attributes
+      &lt;/div&gt;
+      
+      &lt;!-- Atributos condicionais --&gt;
+      &lt;input [attr.required]="campoObrigatorio() ? '' : null" 
+             [attr.readonly]="campoSomenteLeitura() ? '' : null"&gt;
+      
+      &lt;!-- Colspan e rowspan em tabelas --&gt;
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;td [attr.colspan]="colunas()"&gt;Célula com colspan dinâmico&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  `
+})
+export class AttributeBindingComponent {
+  botaoLabel = signal('Clique para alternar');
+  botaoPressionado = signal(false);
+  botaoTexto = signal('Alternar Estado');
+  
+  elementoId = signal('elemento-123');
+  categoria = signal('categoria-a');
+  
+  campoObrigatorio = signal(true);
+  campoSomenteLeitura = signal(false);
+  
+  colunas = signal(3);
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>3. Event Binding (Vinculação de Eventos)</h2>
+                <p>O event binding permite responder a eventos do usuário ou do DOM:</p>
+
+                <div class="example-card">
+                    <h4>Exemplos de event binding:</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: 'app-event-binding',
+  standalone: true,
+  template: `
+    &lt;div&gt;
+      &lt;h2&gt;Exemplos de Event Binding&lt;/h2&gt;
+      
+      &lt;!-- Eventos básicos --&gt;
+      &lt;button (click)="onClique()"&gt;Clique simples&lt;/button&gt;
+      &lt;button (click)="onCliqueComParametro('Olá!')"&gt;Clique com parâmetro&lt;/button&gt;
+      
+      &lt;!-- Eventos de mouse --&gt;
+      &lt;div (mouseenter)="onMouseEnter()" 
+           (mouseleave)="onMouseLeave()"
+           [style.background-color]="corDiv()"&gt;
+        Passe o mouse aqui
+      &lt;/div&gt;
+      
+      &lt;!-- Eventos de teclado --&gt;
+      &lt;input (keyup)="onTeclaLiberada($event)"
+             (keyup.enter)="onEnter()"
+             (keyup.escape)="onEscape()"
+             [value]="textoDigitado()"&gt;
+      
+      &lt;!-- Event object --&gt;
+      &lt;button (click)="onCliqueComEvento($event)"&gt;Clique com evento&lt;/button&gt;
+      
+      &lt;!-- Eventos de formulário --&gt;
+      &lt;form (submit)="onSubmit($event)"&gt;
+        &lt;input type="text" [(ngModel)]="nomeFormulario" required&gt;
+        &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+      &lt;/form&gt;
+      
+      &lt;!-- Resultados --&gt;
+      &lt;div&gt;
+        &lt;p&gt;Última ação: {{ ultimaAcao() }}&lt;/p&gt;
+        &lt;p&gt;Contador de cliques: {{ contadorCliques() }}&lt;/p&gt;
+        &lt;p&gt;Texto digitado: {{ textoDigitado() }}&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+})
+export class EventBindingComponent {
+  ultimaAcao = signal('Nenhuma ação realizada');
+  contadorCliques = signal(0);
+  textoDigitado = signal('');
+  corDiv = signal('#f0f0f0');
+  nomeFormulario = '';
+  
+  onClique() {
+    this.contadorCliques.update(count =&gt; count + 1);
+    this.ultimaAcao.set('Botão clicado');
+  }
+  
+  onCliqueComParametro(mensagem: string) {
+    this.ultimaAcao.set(`Clique com parâmetro: ${mensagem}`);
+  }
+  
+  onMouseEnter() {
+    this.corDiv.set('#e3f2fd');
+    this.ultimaAcao.set('Mouse entrou na div');
+  }
+  
+  onMouseLeave() {
+    this.corDiv.set('#f0f0f0');
+    this.ultimaAcao.set('Mouse saiu da div');
+  }
+  
+  onTeclaLiberada(event: KeyboardEvent) {
+    const target = event.target as HTMLInputElement;
+    this.textoDigitado.set(target.value);
+    this.ultimaAcao.set(`Tecla liberada: ${event.key}`);
+  }
+  
+  onEnter() {
+    this.ultimaAcao.set('Enter pressionado');
+  }
+  
+  onEscape() {
+    this.ultimaAcao.set('Escape pressionado');
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>4. Two-Way Binding (Vinculação Bidirecional)</h2>
+                <p>O two-way binding combina property binding e event binding para sincronização automática:</p>
+
+                <div class="example-card">
+                    <h4>Exemplo com formulário completo:</h4>
+                    <div class="code-block">
+                        <pre>
+import { Component, signal, computed } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-two-way-binding',
+  standalone: true,
+  imports: [FormsModule],
+  template: `
+    &lt;div&gt;
+      &lt;h2&gt;Exemplos de Two-Way Binding&lt;/h2&gt;
+      
+      &lt;!-- Binding bidirecional básico --&gt;
+      &lt;div&gt;
+        &lt;label&gt;Nome:&lt;/label&gt;
+        &lt;input [(ngModel)]="nome" placeholder="Digite seu nome"&gt;
+        &lt;p&gt;Olá, {{ nome || 'Visitante' }}!&lt;/p&gt;
+      &lt;/div&gt;
+      
+      &lt;!-- Formulário completo --&gt;
+      &lt;form&gt;
+        &lt;div&gt;
+          &lt;label&gt;Email:&lt;/label&gt;
+          &lt;input type="email" [(ngModel)]="email" name="email"&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+          &lt;label&gt;Cidade:&lt;/label&gt;
+          &lt;select [(ngModel)]="cidade" name="cidade"&gt;
+            &lt;option value=""&gt;Selecione uma cidade&lt;/option&gt;
+            &lt;option value="sao-paulo"&gt;São Paulo&lt;/option&gt;
+            &lt;option value="rio-janeiro"&gt;Rio de Janeiro&lt;/option&gt;
+            &lt;option value="belo-horizonte"&gt;Belo Horizonte&lt;/option&gt;
+          &lt;/select&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+          &lt;label&gt;
+            &lt;input type="checkbox" [(ngModel)]="aceitaTermos" name="termos"&gt;
+            Aceito os termos e condições
+          &lt;/label&gt;
+        &lt;/div&gt;
+        
+        &lt;div&gt;
+          &lt;label&gt;Comentários:&lt;/label&gt;
+          &lt;textarea [(ngModel)]="comentarios" name="comentarios" rows="3"&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+      
+      &lt;!-- Binding bidirecional com signals --&gt;
+      &lt;div&gt;
+        &lt;h3&gt;Com Signals&lt;/h3&gt;
+        &lt;input [value]="nomeSignal()" (input)="atualizarNome($event)"&gt;
+        &lt;p&gt;Nome (Signal): {{ nomeSignal() }}&lt;/p&gt;
+        &lt;p&gt;Comprimento: {{ comprimentoNome() }}&lt;/p&gt;
+      &lt;/div&gt;
+      
+      &lt;!-- Visualização dos dados --&gt;
+      &lt;div style="background-color: #f5f5f5; padding: 15px; margin-top: 20px;"&gt;
+        &lt;h3&gt;Dados do Formulário:&lt;/h3&gt;
+        &lt;pre&gt;{{ dadosFormulario() }}&lt;/pre&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+})
+export class TwoWayBindingComponent {
+  // Propriedades tradicionais para ngModel
+  nome = '';
+  email = '';
+  cidade = '';
+  aceitaTermos = false;
+  comentarios = '';
+  
+  // Signals para demonstrar binding manual
+  nomeSignal = signal('');
+  
+  // Computed signal
+  comprimentoNome = computed(() =&gt; this.nomeSignal().length);
+  
+  // Computed para mostrar dados do formulário
+  dadosFormulario = computed(() =&gt; {
+    return JSON.stringify({
+      nome: this.nome,
+      email: this.email,
+      cidade: this.cidade,
+      aceitaTermos: this.aceitaTermos,
+      comentarios: this.comentarios
+    }, null, 2);
+  });
+  
+  atualizarNome(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.nomeSignal.set(target.value);
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="new-feature">
+                <h2>5. Controle de Fluxo (Angular v19)</h2>
+                <h3>🚀 Nova Sintaxe de Control Flow</h3>
+                <p>O Angular v19 introduziu uma nova sintaxe mais limpa para controle de fluxo que substitui as diretivas estruturais tradicionais.</p>
+                
+                <div class="feature-grid" style="margin-top: 1rem;">
+                    <div class="feature-card">
+                        <h3>@if / @else</h3>
+                        <p>Para condicionais</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>@for</h3>
+                        <p>Para loops com tracking</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>@switch / @case</h3>
+                        <p>Para múltiplas condições</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h3>5.1 Estruturas Condicionais (@if)</h3>
+                <div class="example-card">
+                    <h4>Exemplo básico com @if:</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: 'app-usuario',
+  template: `
+    &lt;div class="container"&gt;
+      &lt;h2&gt;Perfil do Usuário&lt;/h2&gt;
+      
+      @if (usuario.isLogado) {
+        &lt;div class="perfil-logado"&gt;
+          &lt;h3&gt;Bem-vindo, {{ usuario.nome }}!&lt;/h3&gt;
+          &lt;p&gt;Email: {{ usuario.email }}&lt;/p&gt;
+          
+          @if (usuario.isAdmin) {
+            &lt;button class="btn-admin"&gt;Painel Administrativo&lt;/button&gt;
+          }
+        &lt;/div&gt;
+      } @else {
+        &lt;div class="login-form"&gt;
+          &lt;h3&gt;Faça seu login&lt;/h3&gt;
+          &lt;button (click)="login()"&gt;Entrar&lt;/button&gt;
+        &lt;/div&gt;
+      }
+    &lt;/div&gt;
+  `
+})
+export class UsuarioComponent {
+  usuario = {
+    nome: 'João Silva',
+    email: 'joao@exemplo.com',
+    isLogado: true,
+    isAdmin: false
+  };
+
+  login() {
+    this.usuario.isLogado = true;
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>5.2 Loops com @for</h3>
+                <div class="example-card">
+                    <h4>Lista de produtos com @for:</h4>
+                    <div class="code-block">
+                        <pre>
+interface Produto {
+  id: number;
+  nome: string;
+  preco: number;
+  categoria: string;
+  disponivel: boolean;
+}
+
+@Component({
+  selector: 'app-produtos',
+  template: `
+    &lt;div class="produtos-container"&gt;
+      &lt;h2&gt;Lista de Produtos&lt;/h2&gt;
+      
+      @if (produtos.length &gt; 0) {
+        &lt;div class="produtos-grid"&gt;
+          @for (produto of produtos; track produto.id) {
+            &lt;div class="produto-card" [class.indisponivel]="!produto.disponivel"&gt;
+              &lt;h3&gt;{{ produto.nome }}&lt;/h3&gt;
+              &lt;p class="categoria"&gt;{{ produto.categoria }}&lt;/p&gt;
+              &lt;p class="preco"&gt;{{ produto.preco | currency:'BRL':'symbol':'1.2-2' }}&lt;/p&gt;
+              
+              @if (produto.disponivel) {
+                &lt;button class="btn-comprar"&gt;Comprar&lt;/button&gt;
+              } @else {
+                &lt;span class="status-indisponivel"&gt;Indisponível&lt;/span&gt;
+              }
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      } @else {
+        &lt;p class="lista-vazia"&gt;Nenhum produto encontrado.&lt;/p&gt;
+      }
+    &lt;/div&gt;
+  `
+})
+export class ProdutosComponent {
+  produtos: Produto[] = [
+    { id: 1, nome: 'Smartphone', preco: 1299.99, categoria: 'Eletrônicos', disponivel: true },
+    { id: 2, nome: 'Notebook', preco: 2499.99, categoria: 'Eletrônicos', disponivel: true },
+    { id: 3, nome: 'Headphone', preco: 299.99, categoria: 'Acessórios', disponivel: false },
+    { id: 4, nome: 'Mouse', preco: 89.99, categoria: 'Acessórios', disponivel: true }
+  ];
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>5.3 Switch com @switch</h3>
+                <div class="example-card">
+                    <h4>Status de pedido com @switch:</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: 'app-pedido-status',
+  template: `
+    &lt;div class="status-container"&gt;
+      &lt;h2&gt;Status do Pedido #{{ pedido.numero }}&lt;/h2&gt;
+      
+      @switch (pedido.status) {
+        @case ('pendente') {
+          &lt;div class="status-card pendente"&gt;
+            &lt;h3&gt;⏳ Pedido Pendente&lt;/h3&gt;
+            &lt;p&gt;Aguardando confirmação de pagamento&lt;/p&gt;
+            &lt;button (click)="confirmarPagamento()"&gt;Confirmar Pagamento&lt;/button&gt;
+          &lt;/div&gt;
+        }
+        @case ('processando') {
+          &lt;div class="status-card processando"&gt;
+            &lt;h3&gt;🔄 Processando&lt;/h3&gt;
+            &lt;p&gt;Seu pedido está sendo preparado&lt;/p&gt;
+            &lt;div class="progress-bar"&gt;
+              &lt;div class="progress" [style.width.%]="pedido.progresso"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+        @case ('enviado') {
+          &lt;div class="status-card enviado"&gt;
+            &lt;h3&gt;🚚 Enviado&lt;/h3&gt;
+            &lt;p&gt;Código de rastreamento: {{ pedido.codigoRastreamento }}&lt;/p&gt;
+            &lt;p&gt;Previsão de entrega: {{ pedido.previsaoEntrega | date:'dd/MM/yyyy' }}&lt;/p&gt;
+          &lt;/div&gt;
+        }
+        @case ('entregue') {
+          &lt;div class="status-card entregue"&gt;
+            &lt;h3&gt;✅ Entregue&lt;/h3&gt;
+            &lt;p&gt;Pedido entregue em {{ pedido.dataEntrega | date:'dd/MM/yyyy HH:mm' }}&lt;/p&gt;
+            &lt;button (click)="avaliarPedido()"&gt;Avaliar Pedido&lt;/button&gt;
+          &lt;/div&gt;
+        }
+        @default {
+          &lt;div class="status-card erro"&gt;
+            &lt;h3&gt;❌ Status Desconhecido&lt;/h3&gt;
+            &lt;p&gt;Entre em contato com o suporte&lt;/p&gt;
+          &lt;/div&gt;
+        }
+      }
+    &lt;/div&gt;
+  `
+})
+export class PedidoStatusComponent {
+  pedido = {
+    numero: 12345,
+    status: 'processando' as 'pendente' | 'processando' | 'enviado' | 'entregue',
+    progresso: 65,
+    codigoRastreamento: 'BR123456789',
+    previsaoEntrega: new Date(2024, 11, 25),
+    dataEntrega: new Date(2024, 11, 23, 14, 30)
+  };
+
+  confirmarPagamento() {
+    this.pedido.status = 'processando';
+    this.pedido.progresso = 0;
+  }
+
+  avaliarPedido() {
+    alert('Redirecionando para avaliação...');
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>6. Pipes - Transformação de Dados</h2>
+                <p>Os pipes são uma ferramenta poderosa para transformar dados nos templates do Angular.</p>
+
+                <h3>6.1 Pipes Nativos Essenciais</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📝 Formatação de Texto</h3>
+                        <p>uppercase, lowercase, titlecase</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔢 Números e Moedas</h3>
+                        <p>number, currency, percent</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📅 Datas</h3>
+                        <p>date com diversos formatos</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🐛 Debug</h3>
+                        <p>json para exibir objetos</p>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>Exemplo com pipes básicos:</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: 'app-dados-formatados',
+  template: `
+    &lt;div class="exemplos-container"&gt;
+      &lt;h2&gt;Exemplos de Pipes Nativos&lt;/h2&gt;
+      
+      &lt;div class="exemplo-card"&gt;
+        &lt;h3&gt;Formatação de Texto&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Original:&lt;/strong&gt; {{ nome }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Maiúsculo:&lt;/strong&gt; {{ nome | uppercase }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Minúsculo:&lt;/strong&gt; {{ nome | lowercase }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Título:&lt;/strong&gt; {{ nome | titlecase }}&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="exemplo-card"&gt;
+        &lt;h3&gt;Números e Moeda&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Decimal:&lt;/strong&gt; {{ preco | number:'1.2-2' }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Percentual:&lt;/strong&gt; {{ desconto | percent:'1.0-1' }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Moeda BRL:&lt;/strong&gt; {{ preco | currency:'BRL':'symbol':'1.2-2' }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Moeda USD:&lt;/strong&gt; {{ precoUSD | currency:'USD':'symbol':'1.2-2' }}&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="exemplo-card"&gt;
+        &lt;h3&gt;Datas&lt;/h3&gt;
+        &lt;p&gt;&lt;strong&gt;Data Completa:&lt;/strong&gt; {{ dataAtual | date:'fullDate' }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Formato BR:&lt;/strong&gt; {{ dataAtual | date:'dd/MM/yyyy' }}&lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Com Hora:&lt;/strong&gt; {{ dataAtual | date:'dd/MM/yyyy HH:mm:ss' }}&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class="exemplo-card"&gt;
+        &lt;h3&gt;JSON Debug&lt;/h3&gt;
+        &lt;pre&gt;{{ usuario | json }}&lt;/pre&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+})
+export class DadosFormatadosComponent {
+  nome = 'joão silva santos';
+  preco = 1299.99;
+  precoUSD = 259.99;
+  desconto = 0.15;
+  dataAtual = new Date();
+  
+  usuario = {
+    id: 1,
+    nome: 'João Silva',
+    email: 'joao@exemplo.com',
+    ativo: true,
+    perfis: ['usuario', 'cliente']
+  };
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>6.2 Pipes Customizados</h3>
+                <div class="example-card">
+                    <h4>Criando um pipe para destacar texto:</h4>
+                    <div class="code-block">
+                        <pre>
+// highlight.pipe.ts
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'highlight',
+  standalone: true
+})
+export class HighlightPipe implements PipeTransform {
+  transform(text: string, search: string): string {
+    if (!search || !text) {
+      return text;
+    }
+    
+    const regex = new RegExp(`(${search})`, 'gi');
+    return text.replace(regex, '&lt;mark&gt;$1&lt;/mark&gt;');
+  }
+}
+
+// truncate.pipe.ts
+@Pipe({
+  name: 'truncate',
+  standalone: true
+})
+export class TruncatePipe implements PipeTransform {
+  transform(value: string, limit: number = 50, suffix: string = '...'): string {
+    if (!value) return '';
+    
+    if (value.length &lt;= limit) {
+      return value;
+    }
+    
+    return value.substring(0, limit) + suffix;
+  }
+}
+
+// Usando os pipes customizados
+@Component({
+  selector: 'app-busca-artigos',
+  standalone: true,
+  imports: [HighlightPipe, TruncatePipe],
+  template: `
+    &lt;div class="busca-container"&gt;
+      &lt;h2&gt;Busca de Artigos&lt;/h2&gt;
+      
+      &lt;input 
+        type="text" 
+        [(ngModel)]="termoBusca" 
+        placeholder="Digite sua busca..."&gt;
+
+      &lt;div class="resultados"&gt;
+        @for (artigo of artigos; track artigo.id) {
+          &lt;div class="artigo-card"&gt;
+            &lt;h3 [innerHTML]="artigo.titulo | highlight:termoBusca"&gt;&lt;/h3&gt;
+            &lt;p [innerHTML]="artigo.resumo | truncate:120 | highlight:termoBusca"&gt;&lt;/p&gt;
+            &lt;div class="meta"&gt;
+              &lt;span&gt;Por: {{ artigo.autor }}&lt;/span&gt;
+              &lt;span&gt;{{ artigo.dataPublicacao | date:'dd/MM/yyyy' }}&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+})
+export class BuscaArtigosComponent {
+  termoBusca = '';
+  
+  artigos = [
+    {
+      id: 1,
+      titulo: 'Introdução ao Angular 19',
+      resumo: 'Angular 19 trouxe muitas novidades interessantes, incluindo melhorias significativas no sistema de templates...',
+      autor: 'Maria Santos',
+      dataPublicacao: new Date(2024, 11, 1)
+    }
+    // mais artigos...
+  ];
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <h2>7. Melhores Práticas</h2>
+                <div class="feature-grid">
+                    <div>
+                        <h3>🎯 Use a Nova Sintaxe</h3>
+                        <p>Prefira @if, @for, @switch sobre *ngIf, *ngFor</p>
+                    </div>
+                    <div>
+                        <h3>⚡ Performance</h3>
+                        <p>Use trackBy em loops para melhor performance</p>
+                    </div>
+                    <div>
+                        <h3>🔒 Segurança</h3>
+                        <p>Sanitize dados quando usar innerHTML</p>
+                    </div>
+                    <div>
+                        <h3>🧹 Templates Limpos</h3>
+                        <p>Mantenha lógica complexa nos componentes</p>
+                    </div>
+                    <div>
+                        <h3>📊 Pipes Customizados</h3>
+                        <p>Crie pipes para transformações reutilizáveis</p>
+                    </div>
+                    <div>
+                        <h3>🔍 Acessibilidade</h3>
+                        <p>Use attribute binding para atributos de acessibilidade</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conclusion">
+                <h2>Conclusão</h2>
+                <p>Os templates no Angular v19 oferecem uma sintaxe mais limpa e poderosa para criar interfaces dinâmicas e reativas.</p>
+                <br>
+                <p><strong>Principais novidades e conceitos:</strong></p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>Nova sintaxe de control flow (@if, @for, @switch)</li>
+                    <li>Data binding robusto (interpolação, property, event, two-way)</li>
+                    <li>Pipes nativos e customizados para transformação de dados</li>
+                    <li>Attribute binding para atributos HTML específicos</li>
+                    <li>Templates mais limpos e legíveis</li>
+                    <li>Melhor performance e Developer Experience</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="../../README.md">🏠 Voltar ao Índice</a>
+            <a href="../9_componentes/">⬅️ Aula Anterior</a>
+            <a href="../11_forms/">➡️ Próxima Aula</a>
+        </div>
+    </div>
+</body>
+</html>

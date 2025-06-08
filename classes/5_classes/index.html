@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 5 - Classes</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .class-example {
+            background-color: #fff8e1;
+            border: 1px solid #ff9800;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="../../README.md">← Voltar ao índice principal</a>
+        </div>
+        
+        <h1>Aula 5 - Classes</h1>
+        
+        <h2>📋 Tópicos desta aula</h2>
+        <ul>
+            <li>Declaração de classes</li>
+            <li>Construtores</li>
+            <li>Propriedades e métodos</li>
+            <li>Modificadores de acesso (public, private, protected)</li>
+            <li>Getters e Setters</li>
+            <li>Herança</li>
+            <li>Classes abstratas</li>
+            <li>Implementação de interfaces</li>
+        </ul>
+
+        <h2>🏗️ Classe Básica</h2>
+        
+        <div class="class-example">
+            <h3>Declaração e Constructor</h3>
+            <pre><code>class Pessoa {
+    private nome: string;
+    private idade: number;
+    
+    constructor(nome: string, idade: number) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+    
+    public apresentar(): string {
+        return `Olá, eu sou ${this.nome} e tenho ${this.idade} anos.`;
+    }
+}</code></pre>
+        </div>
+
+        <div class="class-example">
+            <h3>Propriedades no Constructor (Shorthand)</h3>
+            <pre><code>class Usuario {
+    constructor(
+        private id: number,
+        public nome: string,
+        protected email: string
+    ) {}
+    
+    public getId(): number {
+        return this.id;
+    }
+}</code></pre>
+        </div>
+
+        <h2>🔒 Modificadores de Acesso</h2>
+        
+        <div class="class-example">
+            <pre><code>class ContaBancaria {
+    private saldo: number = 0;
+    protected titular: string;
+    public numero: string;
+    
+    constructor(titular: string, numero: string) {
+        this.titular = titular;
+        this.numero = numero;
+    }
+    
+    public depositar(valor: number): void {
+        if (valor > 0) {
+            this.saldo += valor;
+        }
+    }
+    
+    public getSaldo(): number {
+        return this.saldo;
+    }
+}</code></pre>
+        </div>
+
+        <h2>⬆️ Herança</h2>
+        
+        <div class="class-example">
+            <pre><code>class Animal {
+    protected nome: string;
+    
+    constructor(nome: string) {
+        this.nome = nome;
+    }
+    
+    public mover(): string {
+        return `${this.nome} está se movendo`;
+    }
+}
+
+class Cachorro extends Animal {
+    constructor(nome: string) {
+        super(nome);
+    }
+    
+    public latir(): string {
+        return `${this.nome} está latindo`;
+    }
+    
+    public mover(): string {
+        return `${this.nome} está correndo`;
+    }
+}</code></pre>
+        </div>
+
+        <h2>🔧 Getters e Setters</h2>
+        
+        <div class="class-example">
+            <pre><code>class Produto {
+    private _preco: number = 0;
+    
+    get preco(): number {
+        return this._preco;
+    }
+    
+    set preco(valor: number) {
+        if (valor >= 0) {
+            this._preco = valor;
+        } else {
+            throw new Error("Preço não pode ser negativo");
+        }
+    }
+}</code></pre>
+        </div>
+
+        <div class="highlight">
+            <strong>💡 Dica:</strong> Use modificadores de acesso apropriados para encapsular dados e controlar o acesso às propriedades da classe.
+        </div>
+
+        <h2>🔗 Links úteis</h2>
+        <ul>
+            <li><a href="https://www.typescriptlang.org/docs/handbook/2/classes.html" target="_blank">TypeScript - Classes</a></li>
+            <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Classes" target="_blank">MDN - Classes</a></li>
+        </ul>
+    </div>
+</body>
+</html>

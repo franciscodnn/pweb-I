@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 7 - Angular Fundamentals</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #dd0031;
+            border-bottom: 3px solid #dd0031;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #c3002f;
+            margin-top: 30px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .angular-example {
+            background-color: #ffeef0;
+            border: 1px solid #dd0031;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .concept-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .concept-card h3 {
+            color: #dd0031;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="../../README.md">← Voltar ao índice principal</a>
+        </div>
+        
+        <h1>Aula 7 - Angular Fundamentals</h1>
+        
+        <h2>📋 Tópicos desta aula</h2>
+        <ul>
+            <li>Componentes</li>
+            <li>Templates e Data Binding</li>
+            <li>Diretivas</li>
+            <li>Serviços e Dependency Injection</li>
+            <li>Pipes</li>
+            <li>Lifecycle Hooks</li>
+            <li>Event Binding</li>
+            <li>Property Binding</li>
+        </ul>
+
+        <h2>🧩 Componentes</h2>
+        
+        <div class="angular-example">
+            <h3>Anatomia de um Componente</h3>
+            <pre><code>// exemplo.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-exemplo',
+  templateUrl: './exemplo.component.html',
+  styleUrls: ['./exemplo.component.css']
+})
+export class ExemploComponent {
+  titulo = 'Meu Primeiro Componente';
+  contador = 0;
+  
+  incrementar() {
+    this.contador++;
+  }
+}</code></pre>
+        </div>
+
+        <div class="angular-example">
+            <h3>Template (exemplo.component.html)</h3>
+            <pre><code>&lt;div&gt;
+  &lt;h2&gt;{{ titulo }}&lt;/h2&gt;
+  &lt;p&gt;Contador: {{ contador }}&lt;/p&gt;
+  &lt;button (click)="incrementar()"&gt;Incrementar&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <h2>🔗 Data Binding</h2>
+        
+        <div class="concept-grid">
+            <div class="concept-card">
+                <h3>📤 Interpolation</h3>
+                <pre><code>&lt;h1&gt;{{ titulo }}&lt;/h1&gt;
+&lt;p&gt;{{ nome + ' ' + sobrenome }}&lt;/p&gt;</code></pre>
+            </div>
+            <div class="concept-card">
+                <h3>📥 Property Binding</h3>
+                <pre><code>&lt;img [src]="imagemUrl"&gt;
+&lt;button [disabled]="isDisabled"&gt;</code></pre>
+            </div>
+            <div class="concept-card">
+                <h3>👆 Event Binding</h3>
+                <pre><code>&lt;button (click)="onClick()"&gt;
+&lt;input (keyup)="onKeyUp($event)"&gt;</code></pre>
+            </div>
+            <div class="concept-card">
+                <h3>🔄 Two-way Binding</h3>
+                <pre><code>&lt;input [(ngModel)]="nome"&gt;
+&lt;p&gt;Olá, {{ nome }}!&lt;/p&gt;</code></pre>
+            </div>
+        </div>
+
+        <h2>🎯 Diretivas</h2>
+        
+        <div class="angular-example">
+            <h3>Diretivas Estruturais</h3>
+            <pre><code>&lt;!-- *ngIf --&gt;
+&lt;div *ngIf="mostrar"&gt;Este elemento é condicional&lt;/div&gt;
+
+&lt;!-- *ngFor --&gt;
+&lt;ul&gt;
+  &lt;li *ngFor="let item of itens"&gt;{{ item.nome }}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- *ngSwitch --&gt;
+&lt;div [ngSwitch]="cor"&gt;
+  &lt;p *ngSwitchCase="'vermelho'"&gt;Vermelho&lt;/p&gt;
+  &lt;p *ngSwitchCase="'azul'"&gt;Azul&lt;/p&gt;
+  &lt;p *ngSwitchDefault&gt;Cor padrão&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+
+        <div class="angular-example">
+            <h3>Diretivas de Atributo</h3>
+            <pre><code>&lt;!-- ngClass --&gt;
+&lt;div [ngClass]="{ 'ativo': isAtivo, 'destacado': isDestacado }"&gt;
+
+&lt;!-- ngStyle --&gt;
+&lt;div [ngStyle]="{ 'color': cor, 'font-size': tamanho + 'px' }"&gt;</code></pre>
+        </div>
+
+        <h2>💉 Serviços e Dependency Injection</h2>
+        
+        <div class="angular-example">
+            <h3>Criando um Serviço</h3>
+            <pre><code>// dados.service.ts
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DadosService {
+  private dados: any[] = [];
+  
+  constructor() { }
+  
+  getDados() {
+    return this.dados;
+  }
+  
+  adicionarDado(dado: any) {
+    this.dados.push(dado);
+  }
+}</code></pre>
+        </div>
+
+        <div class="angular-example">
+            <h3>Injetando no Componente</h3>
+            <pre><code>import { Component } from '@angular/core';
+import { DadosService } from './dados.service';
+
+@Component({
+  selector: 'app-exemplo',
+  templateUrl: './exemplo.component.html'
+})
+export class ExemploComponent {
+  dados: any[] = [];
+  
+  constructor(private dadosService: DadosService) {
+    this.dados = this.dadosService.getDados();
+  }
+}</code></pre>
+        </div>
+
+        <h2>🔧 Pipes</h2>
+        
+        <div class="angular-example">
+            <pre><code>&lt;!-- Pipes built-in --&gt;
+&lt;p&gt;{{ nome | uppercase }}&lt;/p&gt;
+&lt;p&gt;{{ preco | currency:'BRL':'symbol':'1.2-2' }}&lt;/p&gt;
+&lt;p&gt;{{ dataAtual | date:'dd/MM/yyyy' }}&lt;/p&gt;
+&lt;p&gt;{{ objeto | json }}&lt;/p&gt;
+
+&lt;!-- Chaining pipes --&gt;
+&lt;p&gt;{{ nome | lowercase | titlecase }}&lt;/p&gt;</code></pre>
+        </div>
+
+        <h2>🔄 Lifecycle Hooks</h2>
+        
+        <div class="angular-example">
+            <pre><code>export class ExemploComponent implements OnInit, OnDestroy {
+  
+  ngOnInit() {
+    console.log('Componente inicializado');
+  }
+  
+  ngOnDestroy() {
+    console.log('Componente destruído');
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('Propriedades alteradas', changes);
+  }
+}</code></pre>
+        </div>
+
+        <div class="highlight">
+            <strong>💡 Dica:</strong> Use lifecycle hooks para inicializar dados, fazer limpeza de recursos e reagir a mudanças nas propriedades do componente.
+        </div>
+
+        <h2>🔗 Links úteis</h2>
+        <ul>
+            <li><a href="https://angular.io/guide/component-overview" target="_blank">Angular - Components</a></li>
+            <li><a href="https://angular.io/guide/template-syntax" target="_blank">Angular - Template Syntax</a></li>
+            <li><a href="https://angular.io/guide/dependency-injection" target="_blank">Angular - Dependency Injection</a></li>
+            <li><a href="https://angular.io/guide/lifecycle-hooks" target="_blank">Angular - Lifecycle Hooks</a></li>
+        </ul>
+    </div>
+</body>
+</html>

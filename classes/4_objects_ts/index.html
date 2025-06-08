@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 4 - Objects TS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .object-example {
+            background-color: #f3e5f5;
+            border: 1px solid #9c27b0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="../../README.md">← Voltar ao índice principal</a>
+        </div>
+        
+        <h1>Aula 4 - Objects TS</h1>
+        
+        <h2>📋 Tópicos desta aula</h2>
+        <ul>
+            <li>Tipagem de objetos</li>
+            <li>Interfaces</li>
+            <li>Type aliases</li>
+            <li>Propriedades opcionais</li>
+            <li>Propriedades readonly</li>
+            <li>Index signatures</li>
+            <li>Extending interfaces</li>
+            <li>Intersection types</li>
+        </ul>
+
+        <h2>🏗️ Tipagem Básica de Objetos</h2>
+        
+        <div class="object-example">
+            <h3>Objeto inline</h3>
+            <pre><code>let pessoa: { nome: string; idade: number; ativo: boolean } = {
+    nome: "João",
+    idade: 30,
+    ativo: true
+};</code></pre>
+        </div>
+
+        <h2>🔗 Interfaces</h2>
+        
+        <div class="object-example">
+            <h3>Interface básica</h3>
+            <pre><code>interface Usuario {
+    id: number;
+    nome: string;
+    email: string;
+    idade?: number; // Propriedade opcional
+    readonly criadoEm: Date; // Propriedade readonly
+}
+
+const usuario: Usuario = {
+    id: 1,
+    nome: "Maria",
+    email: "maria@email.com",
+    criadoEm: new Date()
+};</code></pre>
+        </div>
+
+        <div class="object-example">
+            <h3>Extending Interfaces</h3>
+            <pre><code>interface Pessoa {
+    nome: string;
+    idade: number;
+}
+
+interface Funcionario extends Pessoa {
+    cargo: string;
+    salario: number;
+}
+
+const funcionario: Funcionario = {
+    nome: "Carlos",
+    idade: 28,
+    cargo: "Desenvolvedor",
+    salario: 5000
+};</code></pre>
+        </div>
+
+        <h2>🏷️ Type Aliases</h2>
+        
+        <div class="object-example">
+            <pre><code>type Produto = {
+    id: number;
+    nome: string;
+    preco: number;
+    categoria: "eletrônicos" | "roupas" | "livros";
+};
+
+type ProdutoComDesconto = Produto & {
+    desconto: number;
+};</code></pre>
+        </div>
+
+        <h2>📚 Index Signatures</h2>
+        
+        <div class="object-example">
+            <pre><code>interface Configuracao {
+    [chave: string]: string | number | boolean;
+}
+
+const config: Configuracao = {
+    tema: "dark",
+    timeout: 5000,
+    debug: true
+};</code></pre>
+        </div>
+
+        <div class="highlight">
+            <strong>💡 Dica:</strong> Use interfaces para definir contratos de objetos que podem ser implementados ou extendidos. Use type aliases para união de tipos ou tipos mais complexos.
+        </div>
+
+        <h2>🔗 Links úteis</h2>
+        <ul>
+            <li><a href="https://www.typescriptlang.org/docs/handbook/2/objects.html" target="_blank">TypeScript - Object Types</a></li>
+            <li><a href="https://www.typescriptlang.org/docs/handbook/interfaces.html" target="_blank">TypeScript - Interfaces</a></li>
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 9 - Componentes no Angular</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #0056b3;
+        }
+
+        .content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .topic {
+            margin-bottom: 3rem;
+        }
+
+        .topic h2 {
+            color: #495057;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .topic h3 {
+            color: #6c757d;
+            margin: 2rem 0 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .topic h4 {
+            color: #007bff;
+            margin: 1.5rem 0 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border-left: 4px solid #007bff;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .highlight-box {
+            background-color: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .example-card {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .example-card h4 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h3 {
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+
+        .best-practices {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .best-practices h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .tips {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tips strong {
+            color: #856404;
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links a {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Aula 9 - Componentes no Angular</h1>
+            <p>Blocos fundamentais de uma aplicação Angular</p>
+        </div>
+
+        <div class="nav-links">
+            <a href="../../README.md">🏠 Voltar ao Índice</a>
+            <a href="../8_signals/">⬅️ Aula Anterior</a>
+            <a href="../10_templates/">➡️ Próxima Aula</a>
+        </div>
+
+        <div class="content">
+            <div class="topic">
+                <h2>1. Introdução aos Componentes</h2>
+                <p>Os componentes são os blocos fundamentais de uma aplicação Angular. Cada componente é composto por:</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🎨 Template HTML</h3>
+                        <p>Define a interface do usuário</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⚙️ Classe TypeScript</h3>
+                        <p>Controla a lógica e dados</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 Estilos CSS</h3>
+                        <p>Específicos para o componente</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🏷️ Seletor</h3>
+                        <p>Define como o componente será usado</p>
+                    </div>
+                </div>
+
+                <h3>Estrutura básica de um componente:</h3>
+                <div class="code-block">
+                    <pre>
+import { Component } from '@angular/core';
+
+@Component({
+  // Metadados do componente
+  selector: 'app-meu-componente',
+  standalone: true,
+  template: `
+    &lt;h1&gt;Olá, {{ nome }}&lt;/h1&gt;
+    &lt;button (click)="saudar()"&gt;Saudar&lt;/button&gt;
+  `,
+  styles: [`
+    h1 { color: blue; }
+    button { padding: 8px 16px; }
+  `]
+})
+export class MeuComponenteComponent {
+  nome = 'Mundo';
+  
+  saudar() {
+    alert('Olá, ' + this.nome + '!');
+  }
+}
+                    </pre>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>2. Seletores de Componentes</h2>
+                <p>O seletor define como você pode usar o componente em um template HTML. Existem três tipos principais:</p>
+
+                <div class="example-card">
+                    <h4>Seletor de elemento (mais comum)</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: 'app-item',
+  // ...
+})
+
+// Uso no template
+&lt;app-item&gt;&lt;/app-item&gt;
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>Seletor de atributo</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: '[appItem]',
+  // ...
+})
+
+// Uso no template
+&lt;div appItem&gt;&lt;/div&gt;
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>Seletor de classe</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: '.app-item',
+  // ...
+})
+
+// Uso no template
+&lt;div class="app-item"&gt;&lt;/div&gt;
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>3. Estilização de Componentes</h2>
+                <p>O Angular fornece encapsulamento de estilos, garantindo que os estilos definidos em um componente não afetem o restante da aplicação.</p>
+
+                <h3>Formas de adicionar estilos</h3>
+
+                <div class="example-card">
+                    <h4>1. Inline no decorador @Component</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  // ...
+  styles: [`
+    h1 { color: red; }
+    p { font-size: 16px; }
+  `]
+})
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>2. Arquivo externo</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  // ...
+  styleUrls: ['./meu-componente.component.css']
+})
+                        </pre>
+                    </div>
+                </div>
+
+                <h3>Variáveis CSS e estilos específicos</h3>
+                <div class="code-block">
+                    <pre>
+@Component({
+  // ...
+  styles: [`
+    :host {
+      display: block;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+    
+    :host(.destaque) {
+      background-color: #ffffd0;
+      border: 1px solid gold;
+    }
+    
+    /* Variáveis CSS */
+    :host {
+      --cor-primaria: #1976d2;
+      --cor-secundaria: #455a64;
+    }
+    
+    h1 {
+      color: var(--cor-primaria);
+    }
+  `]
+})
+                    </pre>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>4. Inputs - Passando Dados para Componentes</h2>
+                <p>Os inputs permitem que dados sejam passados de um componente pai para um componente filho.</p>
+
+                <div class="example-card">
+                    <h4>Exemplo básico:</h4>
+                    <div class="code-block">
+                        <pre>
+// Componente filho (cartao.component.ts)
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-cartao',
+  standalone: true,
+  template: `
+    &lt;div class="cartao"&gt;
+      &lt;h2&gt;{{ titulo }}&lt;/h2&gt;
+      &lt;p&gt;{{ descricao }}&lt;/p&gt;
+    &lt;/div&gt;
+  `,
+  styles: [`
+    .cartao {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 16px;
+      margin: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  `]
+})
+export class CartaoComponent {
+  titulo: string = input('');
+  descricao: string = input('');
+}
+
+// Componente pai (app.component.ts)
+import { Component } from '@angular/core';
+import { CartaoComponent } from './cartao.component';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CartaoComponent],
+  template: `
+    &lt;h1&gt;Meus Cartões&lt;/h1&gt;
+    &lt;app-cartao 
+      titulo="Primeiro Cartão" 
+      descricao="Esta é a descrição do primeiro cartão"&gt;
+    &lt;/app-cartao&gt;
+    
+    &lt;app-cartao 
+      titulo="Segundo Cartão" 
+      descricao="Esta é a descrição do segundo cartão"&gt;
+    &lt;/app-cartao&gt;
+  `
+})
+export class AppComponent {}
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <strong>Dicas sobre Inputs:</strong>
+                    <ul>
+                        <li>Use <code>input.required&lt;string&gt;()</code> para inputs obrigatórios</li>
+                        <li>Defina alias com <code>{ alias: 'cardTitle' }</code></li>
+                        <li>Use setters para transformar dados de input</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>5. Outputs - Emitindo Eventos para Componentes Pai</h2>
+                <p>Os outputs permitem que eventos e dados sejam emitidos de um componente filho para um componente pai.</p>
+
+                <div class="example-card">
+                    <h4>Exemplo com contador:</h4>
+                    <div class="code-block">
+                        <pre>
+import { Component, Output, EventEmitter, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-contador',
+  standalone: true,
+  template: `
+    &lt;div&gt;
+      &lt;p&gt;Contagem: {{ contador() }}&lt;/p&gt;
+      &lt;button (click)="incrementar()"&gt;Incrementar&lt;/button&gt;
+      &lt;button (click)="resetar()"&gt;Resetar&lt;/button&gt;
+    &lt;/div&gt;
+  `
+})
+export class ContadorComponent {
+  // Substituindo variável comum por signal
+  contador = signal(0);
+  
+  valorAlterado = output&lt;number&gt;();
+  foiResetado = output&lt;void&gt;();
+  
+  incrementar() {
+    // Atualizando o valor do signal
+    this.contador.update(valor =&gt; valor + 1);
+    this.valorAlterado.emit(this.contador());
+  }
+  
+  resetar() {
+    // Definindo o valor do signal
+    this.contador.set(0);
+    this.foiResetado.emit();
+    this.valorAlterado.emit(this.contador());
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>6. Projeção de Conteúdo (Content Projection)</h2>
+                <p>A projeção de conteúdo permite que você insira conteúdo externo dentro do template de um componente.</p>
+
+                <div class="example-card">
+                    <h4>Projeção simples:</h4>
+                    <div class="code-block">
+                        <pre>
+// Componente (card.component.ts)
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-card',
+  standalone: true,
+  template: `
+    &lt;div class="card"&gt;
+      &lt;ng-content&gt;&lt;/ng-content&gt;
+    &lt;/div&gt;
+  `,
+  styles: [`
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 16px;
+      margin: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+  `]
+})
+export class CardComponent {}
+
+// Uso no componente pai
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CardComponent],
+  template: `
+    &lt;app-card&gt;
+      &lt;h2&gt;Título do Card&lt;/h2&gt;
+      &lt;p&gt;Este é o conteúdo projetado dentro do card.&lt;/p&gt;
+      &lt;button&gt;Clique aqui&lt;/button&gt;
+    &lt;/app-card&gt;
+  `
+})
+export class AppComponent {}
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <h4>Projeção múltipla com seletores:</h4>
+                    <div class="code-block">
+                        <pre>
+@Component({
+  selector: 'app-dashboard-card',
+  standalone: true,
+  template: `
+    &lt;div class="card"&gt;
+      &lt;div class="card-header"&gt;
+        &lt;ng-content select="[card-title]"&gt;&lt;/ng-content&gt;
+      &lt;/div&gt;
+      &lt;div class="card-body"&gt;
+        &lt;ng-content select="[card-content]"&gt;&lt;/ng-content&gt;
+      &lt;/div&gt;
+      &lt;div class="card-footer"&gt;
+        &lt;ng-content select="[card-footer]"&gt;&lt;/ng-content&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  `
+})
+export class DashboardCardComponent {}
+
+// Uso no componente pai
+&lt;app-dashboard-card&gt;
+  &lt;div card-title&gt;
+    &lt;h3&gt;Estatísticas&lt;/h3&gt;
+  &lt;/div&gt;
+  
+  &lt;div card-content&gt;
+    &lt;p&gt;Vendas totais: 10.456&lt;/p&gt;
+    &lt;p&gt;Usuários ativos: 2.345&lt;/p&gt;
+  &lt;/div&gt;
+  
+  &lt;div card-footer&gt;
+    &lt;button&gt;Ver detalhes&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/app-dashboard-card&gt;
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>7. Exemplo Completo: Lista de Tarefas</h2>
+                <p>Vamos aplicar todos os conceitos em um exemplo prático que combina inputs, outputs e projeção de conteúdo.</p>
+
+                <div class="highlight-box">
+                    <strong>Recursos demonstrados:</strong>
+                    <ul>
+                        <li>Comunicação entre componentes pai e filho</li>
+                        <li>Gerenciamento de estado com arrays</li>
+                        <li>Eventos customizados</li>
+                        <li>Formulários simples</li>
+                        <li>Listagem dinâmica de dados</li>
+                    </ul>
+                </div>
+
+                <div class="example-card">
+                    <h4>Interface e componente de item:</h4>
+                    <div class="code-block">
+                        <pre>
+// tarefa.interface.ts
+export interface Tarefa {
+  id: number;
+  titulo: string;
+  concluida: boolean;
+}
+
+// tarefa-item.component.ts
+import { Component, input, output } from '@angular/core';
+import { Tarefa } from './tarefa.interface';
+
+@Component({
+  selector: 'app-tarefa-item',
+  standalone: true,
+  template: `
+    &lt;div class="tarefa-item" [class.concluida]="tarefa.concluida"&gt;
+      &lt;input
+        type="checkbox"
+        [checked]="tarefa.concluida"
+        (change)="marcarConcluida()"
+      /&gt;
+      &lt;span class="titulo"&gt;{{ tarefa.titulo }}&lt;/span&gt;
+      &lt;button class="btn-remover" (click)="remover()"&gt;X&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+  styles: [`
+    .tarefa-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      margin: 5px 0;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    
+    .concluida .titulo {
+      text-decoration: line-through;
+      color: #888;
+    }
+    
+    .titulo {
+      flex: 1;
+      margin: 0 10px;
+    }
+    
+    .btn-remover {
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+    }
+  `]
+})
+export class TarefaItemComponent {
+  tarefa = input.required&lt;Tarefa&gt;();
+  tarefaConcluida = output&lt;number&gt;();
+  tarefaRemovida = output&lt;number&gt;();
+  
+  marcarConcluida() {
+    this.tarefaConcluida.emit(this.tarefa().id);
+  }
+  
+  remover() {
+    this.tarefaRemovida.emit(this.tarefa().id);
+  }
+}
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <h2>8. Boas Práticas para Componentes</h2>
+                <div class="feature-grid">
+                    <div>
+                        <h3>🎯 Responsabilidade Única</h3>
+                        <p>Cada componente deve ter uma única responsabilidade</p>
+                    </div>
+                    <div>
+                        <h3>🔧 Componentes Pequenos</h3>
+                        <p>Crie componentes específicos para melhor reutilização</p>
+                    </div>
+                    <div>
+                        <h3>🔒 Imutabilidade</h3>
+                        <p>Evite mutações diretas de dados, prefira criar novos objetos</p>
+                    </div>
+                    <div>
+                        <h3>📦 Encapsulamento</h3>
+                        <p>Mantenha a lógica interna protegida e exponha apenas o necessário</p>
+                    </div>
+                    <div>
+                        <h3>📝 Nomenclatura Consistente</h3>
+                        <p>Use padrões consistentes para nomes de componentes e seletores</p>
+                    </div>
+                    <div>
+                        <h3>⚡ Performance</h3>
+                        <p>Use OnPush e OnDestroy para melhor desempenho</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conclusion">
+                <h2>Conclusão</h2>
+                <p>Os componentes são fundamentais no Angular e compreender como utilizá-los efetivamente é essencial para criar aplicações robustas e escaláveis.</p>
+                <br>
+                <p><strong>Conceitos principais cobertos:</strong></p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>Estrutura básica de componentes</li>
+                    <li>Seletores para identificação de componentes</li>
+                    <li>Estilização isolada</li>
+                    <li>Inputs para comunicação de cima para baixo</li>
+                    <li>Outputs para comunicação de baixo para cima</li>
+                    <li>Projeção de conteúdo para composição flexível</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="nav-links">
+            <a href="../../README.md">🏠 Voltar ao Índice</a>
+            <a href="../8_signals/">⬅️ Aula Anterior</a>
+            <a href="../10_templates/">➡️ Próxima Aula</a>
+        </div>
+    </div>
+</body>
+</html>

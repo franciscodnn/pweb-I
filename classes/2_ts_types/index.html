@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula 2 - TypeScript Types</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+        }
+        .nav a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        pre {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .type-example {
+            background-color: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="../../README.md">← Voltar ao índice principal</a>
+        </div>
+        
+        <h1>Aula 2 - TypeScript Types</h1>
+        
+        <h2>📋 Tópicos desta aula</h2>
+        <ul>
+            <li>Tipos primitivos (string, number, boolean)</li>
+            <li>Arrays e Tuplas</li>
+            <li>Enums</li>
+            <li>Union Types</li>
+            <li>Type Aliases</li>
+            <li>Interfaces</li>
+            <li>Tipos any, unknown, never</li>
+        </ul>
+
+        <h2>🔢 Tipos Primitivos</h2>
+        
+        <div class="type-example">
+            <h3>String</h3>
+            <pre><code>let nome: string = "João";
+let sobrenome: string = 'Silva';</code></pre>
+        </div>
+
+        <div class="type-example">
+            <h3>Number</h3>
+            <pre><code>let idade: number = 25;
+let altura: number = 1.75;</code></pre>
+        </div>
+
+        <div class="type-example">
+            <h3>Boolean</h3>
+            <pre><code>let ativo: boolean = true;
+let concluido: boolean = false;</code></pre>
+        </div>
+
+        <h2>📚 Arrays e Tuplas</h2>
+        
+        <div class="type-example">
+            <h3>Arrays</h3>
+            <pre><code>let numeros: number[] = [1, 2, 3];
+let nomes: Array&lt;string&gt; = ["Ana", "Bob"];</code></pre>
+        </div>
+
+        <div class="type-example">
+            <h3>Tuplas</h3>
+            <pre><code>let pessoa: [string, number] = ["João", 30];
+let coordenada: [number, number] = [10, 20];</code></pre>
+        </div>
+
+        <h2>🔗 Union Types</h2>
+        <div class="type-example">
+            <pre><code>let id: string | number;
+id = "abc123";  // ✅ Válido
+id = 123;       // ✅ Válido</code></pre>
+        </div>
+
+        <div class="highlight">
+            <strong>💡 Dica:</strong> Use tipos específicos sempre que possível para aproveitar ao máximo as verificações de tipo do TypeScript.
+        </div>
+
+        <h2>🔗 Links úteis</h2>
+        <ul>
+            <li><a href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html" target="_blank">TypeScript - Everyday Types</a></li>
+            <li><a href="https://www.typescriptlang.org/docs/handbook/2/objects.html" target="_blank">TypeScript - Object Types</a></li>
+        </ul>
+    </div>
+</body>
+</html>
