@@ -6,6 +6,13 @@
       "email": "pedro.oliveira@email.com",
       "login": "pedro789",
       "senha": "mypass"
+    },
+    {
+      "id": 4,
+      "nome": "Francisco",
+      "email": "teste@teste.com",
+      "login": "francisco",
+      "senha": "123456"
     }
   ]
 }

@@ -1,0 +1,36 @@
+<style>
+  div {
+    margin-top: 10px;
+  }
+</style>
+
+<form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Nome:</label>
+    <input type="text" id="name" formControlName="name" required>
+  </div>
+
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" required>
+  </div>
+
+  <div>
+    <label for="login">Login:</label>
+    <input type="text" id="login" formControlName="login" required>
+  </div>
+
+  <div>
+    <label for="password">Senha:</label>
+    <input type="password" id="password" formControlName="password" required>
+  </div>
+
+  <div>
+    <label for="bio">Bio:</label>
+    <textarea id="bio" formControlName="bio" required></textarea>
+  </div>
+
+  <div>
+    <button type="submit">Criar Usuário</button>
+  </div>
+</form>

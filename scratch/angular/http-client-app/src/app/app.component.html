@@ -88,16 +88,19 @@
 
     <!-- Offcanvas Content -->
     <div class="p-6">
-      <form (ngSubmit)="addUser()" class="space-y-4">
+      <form [formGroup]="userForm" (ngSubmit)="addUser()" class="space-y-4">
         <div>
           <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
           <input 
             type="text" 
             id="nome" 
-            [(ngModel)]="newUser.nome"
-            name="nome"
-            required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            formControlName="nome"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            [class.border-red-500]="nome?.invalid && nome?.touched">
+          <div *ngIf="nome?.invalid && nome?.touched" class="mt-1 text-sm text-red-600">
+            <span *ngIf="nome?.errors?.['required']">Nome é obrigatório</span>
+            <span *ngIf="nome?.errors?.['minlength']">Nome deve ter pelo menos 2 caracteres</span>
+          </div>
         </div>
 
         <div>
@@ -105,10 +108,13 @@
           <input 
             type="email" 
             id="email" 
-            [(ngModel)]="newUser.email"
-            name="email"
-            required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            formControlName="email"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            [class.border-red-500]="email?.invalid && email?.touched">
+          <div *ngIf="email?.invalid && email?.touched" class="mt-1 text-sm text-red-600">
+            <span *ngIf="email?.errors?.['required']">Email é obrigatório</span>
+            <span *ngIf="email?.errors?.['email']">Email deve ter um formato válido</span>
+          </div>
         </div>
 
         <div>
@@ -116,10 +122,13 @@
           <input 
             type="text" 
             id="login" 
-            [(ngModel)]="newUser.login"
-            name="login"
-            required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            formControlName="login"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            [class.border-red-500]="login?.invalid && login?.touched">
+          <div *ngIf="login?.invalid && login?.touched" class="mt-1 text-sm text-red-600">
+            <span *ngIf="login?.errors?.['required']">Login é obrigatório</span>
+            <span *ngIf="login?.errors?.['minlength']">Login deve ter pelo menos 3 caracteres</span>
+          </div>
         </div>
 
         <div>
@@ -127,16 +136,20 @@
           <input 
             type="password" 
             id="senha" 
-            [(ngModel)]="newUser.senha"
-            name="senha"
-            required
-            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            formControlName="senha"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            [class.border-red-500]="senha?.invalid && senha?.touched">
+          <div *ngIf="senha?.invalid && senha?.touched" class="mt-1 text-sm text-red-600">
+            <span *ngIf="senha?.errors?.['required']">Senha é obrigatória</span>
+            <span *ngIf="senha?.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres</span>
+          </div>
         </div>
 
         <div class="flex space-x-3 pt-4">
           <button 
             type="submit"
-            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition-colors">
+            [disabled]="userForm.invalid"
+            class="flex-1 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white py-2 px-4 rounded-md font-medium transition-colors">
             Adicionar
           </button>
           <button 

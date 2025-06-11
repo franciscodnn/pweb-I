@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "nome": "João Silva",
+      "email": "joao.silva@email.com",
+      "login": "joao123",
+      "senha": "123456",
+      "bio": "Desenvolvedor Frontend"
+    },
+    {
+      "id": "2",
+      "nome": "Maria Santos",
+      "email": "maria.santos@email.com",
+      "login": "maria456",
+      "senha": "senha123",
+      "bio": "Designer Gráfico"
+    },
+    {
+      "id": "3",
+      "nome": "Pedro Oliveira",
+      "email": "pedro.oliveira@email.com",
+      "login": "pedro789",
+      "senha": "mypass",
+      "bio": "Gerente de Projetos"
+    },
+    {
+      "id": "6425",
+      "name": "Francisco",
+      "email": "teste@teste.com",
+      "login": "teste",
+      "password": "123",
+      "bio": "teste"
+    }
+  ]
+}

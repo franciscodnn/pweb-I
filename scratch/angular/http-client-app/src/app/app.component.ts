@@ -1,12 +1,12 @@
 import { Component, effect, model, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User, USERS } from './data/users';
 import { ConfigServiceService } from '../services/config-service.service';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -15,34 +15,37 @@ export class AppComponent {
   users = model<User[]>([]);
   isOffcanvasOpen = false;
   userData: User[] | null = null;
+  userForm: FormGroup;
 
   configService = inject(ConfigServiceService);
+  private fb = inject(FormBuilder);
 
   constructor() {
+    // Inicializa o formulário reativo
+    this.userForm = this.fb.group({
+      nome: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      login: ['', [Validators.required, Validators.minLength(3)]],
+      senha: ['', [Validators.required, Validators.minLength(6)]]
+    });
+
     // Carrega dados apenas uma vez na inicialização
     // this.loadUsers();
 
     effect(() => {
       this.configService.loadData('users').subscribe(
-      data => {
-        this.userData = data as User[];
-        this.users.set(this.userData);
-        console.log('Data loaded: ' + this.userData?.length);
+        {
+          next: (data) => {
+            this.userData = data as User[];
+            this.users.set(this.userData);
+            console.log('Data loaded: ' + this.userData?.length);
+          },
+          error: (error) => {
+            console.error('Error loading data:', error);
+          }
+        });
       });
-    });
   }
-
-  loadUsers() {
-    
-  }
-  
-  newUser: User = {
-    id: 0,
-    nome: '',
-    email: '',
-    login: '',
-    senha: ''
-  };
 
   removeUser(id: number) {
     console.log(`User with ID ${id} removed successfully.`) ;
@@ -55,30 +58,47 @@ export class AppComponent {
 
   closeOffcanvas() {
     this.isOffcanvasOpen = false;
-    this.resetNewUser();
+    this.resetForm();
   }
 
   addUser() {
-    if (this.newUser.nome && this.newUser.email && this.newUser.login && this.newUser.senha) {
-      this.newUser.id = this.users()?.length > 0 ? Math.max(...this.users().map(u => u.id)) + 1 : 1;
+    if (this.userForm.valid) {
+      const formValue = this.userForm.value;
+      const newUser: User = {
+        id: this.users()?.length > 0 ? Math.max(...this.users().map(u => u.id)) + 1 : 1,
+        nome: formValue.nome,
+        email: formValue.email,
+        login: formValue.login,
+        senha: formValue.senha
+      };
       
       // Adiciona no backend primeiro
-      this.configService.add('users', this.newUser).subscribe(() => {
+      this.configService.add('users', newUser).subscribe(() => {
         // Depois atualiza localmente
-        this.users.set([...this.users(), { ...this.newUser }]);
-        console.log(`User ${this.newUser.nome} added successfully.`);
+        this.users.set([...this.users(), newUser]);
+        console.log(`User ${newUser.nome} added successfully.`);
         this.closeOffcanvas();
       });
+    } else {
+      // Marca todos os campos como touched para mostrar erros de validação
+      this.markFormGroupTouched();
     }
   }
 
-  resetNewUser() {
-    this.newUser = {
-      id: 0,
-      nome: '',
-      email: '',
-      login: '',
-      senha: ''
-    };
+  resetForm() {
+    this.userForm.reset();
   }
+
+  private markFormGroupTouched() {
+    Object.keys(this.userForm.controls).forEach(field => {
+      const control = this.userForm.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
+  }
+
+  // Getters para facilitar o acesso aos controles no template
+  get nome() { return this.userForm.get('nome'); }
+  get email() { return this.userForm.get('email'); }
+  get login() { return this.userForm.get('login'); }
+  get senha() { return this.userForm.get('senha'); }
 }
