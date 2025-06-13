@@ -1,5 +1,6 @@
 import { Component, signal, effect, inject } from '@angular/core';
 import { ApiClientService } from '../services/api-client.service';
+import { User } from '../model/user.interface';
 
 @Component({
   selector: 'list-users-component',
@@ -8,15 +9,19 @@ import { ApiClientService } from '../services/api-client.service';
   styleUrl: './list-users.component.css'
 })
 export class ListUsersComponent {
-  users = signal([]);
+  users = signal<User[]>([]);
   private apiClient = inject(ApiClientService);
 
 
   constructor() {
     effect(() => {
       const allUsers = this.apiClient.getAllUsers('users').subscribe({
-        next: (data: any) => {
+        next: (data: User[]) => {
           console.log(data);
+
+          this.users.set(
+            [...data]
+          );
           // return data;
         },
         error: (erro: any) => {

@@ -1,0 +1,32 @@
+<style>
+    div {
+        margin-bottom: 8px;
+    }
+</style>
+<form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
+    <div>
+        <input 
+          type="text" 
+          formControlName="name"
+          placeholder="Nome completo">
+    </div>
+    <div>
+        <input 
+          type="text" 
+          formControlName="age"
+          placeholder="Idade">
+    </div>
+    <div>
+        <input 
+          type="text" 
+          formControlName="email"
+          placeholder="E-mail">
+    </div>
+    <div>
+        <textarea formControlName="bio"
+          placeholder="Biografia"></textarea>
+    </div>
+    <div>
+        <button type="submit">Cadastrar</button>
+    </div>
+</form>

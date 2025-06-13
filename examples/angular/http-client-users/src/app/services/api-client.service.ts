@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { User } from '../model/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,17 @@ export class ApiClientService {
 
   getAllUsers(resource: string) {
     // http://localhost:3000/users
-    return this.httpClient.get(
-      `${this.host}/${resource}`
+    const endpoint = `${this.host}/${resource}`;
+    return this.httpClient.get<User[]>(
+      endpoint
     );
+  }
+
+  createUser(user: User, resource: string) {
+    const endpoint = `${this.host}/${resource}`;
+    this.httpClient.post<User>(
+      endpoint,
+      user
+    ).subscribe();
   }
 }

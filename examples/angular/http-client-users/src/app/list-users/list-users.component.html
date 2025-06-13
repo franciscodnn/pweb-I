@@ -1,1 +1,16 @@
-<p>list-users works!</p>
+<style>
+    div {
+        border-bottom: 1px solid black;
+    }
+</style>
+<h3>Usuários Cadastrados</h3>
+<hr>
+@for(user of users(); track user.id){
+    <div class="user">
+        <p>{{ user.id }}</p>
+        <p>{{ user.name }}</p>
+        <p>{{ user.age }}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.bio }}</p>
+    </div>
+}
