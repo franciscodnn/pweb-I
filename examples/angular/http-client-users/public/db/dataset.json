@@ -1,35 +1,39 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "name": "Maria",
-            "email": "maria@gmail.com",
-            "age": 30,
-            "bio": "Front-end developer"
-        },
-
-        {
-            "id": 2,
-            "name": "Suetone",
-            "email": "suetone@gmail.com",
-            "age": 23,
-            "bio": "Full-stack developer"
-        },
-
-        {
-            "id": 3,
-            "name": "Leidiana",
-            "email": "leidiana@gmail.com",
-            "age": 41,
-            "bio": "Database manager"
-        },
-
-        {
-            "id": 4,
-            "name": "Maria",
-            "email": "maria2@gmail.com",
-            "age": 30,
-            "bio": "Back-end developer"
-        }
-    ]
+  "users": [
+    {
+      "id": "1",
+      "name": "Maria",
+      "email": "maria@gmail.com",
+      "age": 30,
+      "bio": "Front-end developer"
+    },
+    {
+      "id": "2",
+      "name": "Suetone",
+      "email": "suetone@gmail.com",
+      "age": 23,
+      "bio": "Full-stack developer"
+    },
+    {
+      "id": "3",
+      "name": "Leidiana",
+      "email": "leidiana@gmail.com",
+      "age": 41,
+      "bio": "Database manager"
+    },
+    {
+      "id": "4",
+      "name": "Maria",
+      "email": "maria2@gmail.com",
+      "age": 30,
+      "bio": "Back-end developer"
+    },
+    {
+      "id": "2726",
+      "name": "Francisco",
+      "email": "teste@gmail.com",
+      "age": "38",
+      "bio": "Professor"
+    }
+  ]
 }
