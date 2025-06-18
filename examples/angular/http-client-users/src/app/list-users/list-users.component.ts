@@ -1,10 +1,11 @@
 import { Component, signal, effect, inject } from '@angular/core';
 import { ApiClientService } from '../services/api-client.service';
 import { User } from '../model/user.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'list-users-component',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.css'
 })

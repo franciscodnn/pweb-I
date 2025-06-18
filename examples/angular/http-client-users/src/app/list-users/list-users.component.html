@@ -1,16 +1,34 @@
 <style>
-    div {
+    .user {
         border-bottom: 1px solid black;
+    }
+
+    .grid {
+        display: grid;
+        gap: 10px;
+        margin: 0 10px;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 </style>
 <h3>Usuários Cadastrados</h3>
 <hr>
-@for(user of users(); track user.id){
+<div class="grid">
+    @for(user of users(); track user.id){
+
     <div class="user">
         <p>{{ user.id }}</p>
         <p>{{ user.name }}</p>
         <p>{{ user.age }}</p>
         <p>{{ user.email }}</p>
         <p>{{ user.bio }}</p>
+        <p>
+            <!-- <a [routerLink]='["/user", user.id]'> -->
+            <a routerLink="/user-detail" 
+              [queryParams]="{ id: user.id}">
+                Detalhar
+            </a>
+        </p>
     </div>
-}
+
+    }
+</div>

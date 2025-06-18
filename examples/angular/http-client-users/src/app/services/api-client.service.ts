@@ -26,4 +26,10 @@ export class ApiClientService {
       user
     ).subscribe();
   }
+
+  getUserById(id: string, resource: string) {
+    return this.httpClient.get<User>(
+      `${this.host}/${resource}/${id}`
+    );
+  }
 }
