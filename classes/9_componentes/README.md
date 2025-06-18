@@ -435,7 +435,9 @@ export class AppComponent {}
 ```html
 <app-dashboard-card>
   <ng-container ngProjectAs="[card-title]">
-    <h3 *ngIf="mostrarTitulo">Estatísticas</h3>
+    @if (mostrarTitulo) {
+      <h3>Estatísticas</h3>
+    }
   </ng-container>
   
   <!-- Resto do conteúdo -->
@@ -609,11 +611,13 @@ import { Tarefa } from './tarefa.interface';
         }
       </div>
       
-      <div class="acoes" *ngIf="tarefas.length > 0">
-        <button class="btn-limpar" (click)="limparTarefas()">
-          Limpar Todas
-        </button>
-      </div>
+      @if (tarefas.length > 0) {
+        <div class="acoes">
+          <button class="btn-limpar" (click)="limparTarefas()">
+            Limpar Todas
+          </button>
+        </div>
+      }
     </div>
   `,
   styles: [`

@@ -253,26 +253,34 @@ import { User, CreateUserRequest } from '../../models/user.interface';
       <div class="users-section">
         <h3>Usuários Cadastrados</h3>
         
-        <div *ngIf="loading" class="loading">Carregando usuários...</div>
+        @if (loading) {
+          <div class="loading">Carregando usuários...</div>
+        }
         
-        <div *ngIf="error" class="error">{{ error }}</div>
+        @if (error) {
+          <div class="error">{{ error }}</div>
+        }
         
-        <div *ngIf="users.length === 0 && !loading" class="empty">
-          Nenhum usuário encontrado.
-        </div>
-        
-        <div class="user-card" *ngFor="let user of users">
-          <div class="user-info">
-            <h4>{{ user.name }}</h4>
-            <p>{{ user.email }}</p>
-            <small>ID: {{ user.id }}</small>
+        @if (users.length === 0 && !loading) {
+          <div class="empty">
+            Nenhum usuário encontrado.
           </div>
-          
-          <div class="user-actions">
-            <button (click)="editUser(user)" class="btn-edit">Editar</button>
-            <button (click)="deleteUser(user.id!)" class="btn-delete">Deletar</button>
+        }
+        
+        @for (user of users; track user.id) {
+          <div class="user-card">
+            <div class="user-info">
+              <h4>{{ user.name }}</h4>
+              <p>{{ user.email }}</p>
+              <small>ID: {{ user.id }}</small>
+            </div>
+            
+            <div class="user-actions">
+              <button (click)="editUser(user)" class="btn-edit">Editar</button>
+              <button (click)="deleteUser(user.id!)" class="btn-delete">Deletar</button>
+            </div>
           </div>
-        </div>
+        }
       </div>
     </div>
   `,

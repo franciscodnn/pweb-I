@@ -165,11 +165,13 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
       <button type="submit">Salvar</button>
     </form>
     
-    <div *ngIf="usuarioSalvo()">
-      <h3>Usuário Salvo:</h3>
-      <p>Nome: {{ usuarioSalvo()?.nome }}</p>
-      <p>Email: {{ usuarioSalvo()?.email }}</p>
-    </div>
+    @if (usuarioSalvo()) {
+      <div>
+        <h3>Usuário Salvo:</h3>
+        <p>Nome: {{ usuarioSalvo()?.nome }}</p>
+        <p>Email: {{ usuarioSalvo()?.email }}</p>
+      </div>
+    }
   `,
 })
 export class FormularioUsuarioComponent {
@@ -298,23 +300,27 @@ interface Tarefa {
       </div>
       
       <ul class="tarefas">
-        <li *ngFor="let tarefa of tarefas()">
-          <input 
-            type="checkbox" 
-            [checked]="tarefa.concluida" 
-            (change)="alternarStatus(tarefa.id)"
-          >
-          <span [class.concluida]="tarefa.concluida">
-            {{ tarefa.descricao }}
-          </span>
-          <button (click)="removerTarefa(tarefa.id)">X</button>
-        </li>
+        @for (tarefa of tarefas(); track tarefa.id) {
+          <li>
+            <input 
+              type="checkbox" 
+              [checked]="tarefa.concluida" 
+              (change)="alternarStatus(tarefa.id)"
+            >
+            <span [class.concluida]="tarefa.concluida">
+              {{ tarefa.descricao }}
+            </span>
+            <button (click)="removerTarefa(tarefa.id)">X</button>
+          </li>
+        }
       </ul>
       
-      <div class="acoes" *ngIf="totalTarefas() > 0">
-        <button (click)="limparTarefas()">Limpar todas</button>
-        <button (click)="limparConcluidas()">Remover concluídas</button>
-      </div>
+      @if (totalTarefas() > 0) {
+        <div class="acoes">
+          <button (click)="limparTarefas()">Limpar todas</button>
+          <button (click)="limparConcluidas()">Remover concluídas</button>
+        </div>
+      }
     </div>
   `,
   styles: [`

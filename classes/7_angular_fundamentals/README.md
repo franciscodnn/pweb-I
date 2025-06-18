@@ -295,7 +295,7 @@ export class ListaComServicoInjectComponent {
 | Property Binding    | `[propriedade]="valor"`                      | `<img [src]="urlImagem">`                 |
 | Event Binding       | `(evento)="manipulador()"`                   | `<button (click)="salvar()">Salvar</button>` |
 | Two-way Binding     | `[(ngModel)]="valor"`                        | `<input [(ngModel)]="nome">`              |
-| Condicionais        | Tradicional: `*ngIf="condicao"`              | `<div *ngIf="usuarioLogado">`             |
-|                     | Angular 17+: `@if (condicao) { ... }`        | `@if (usuarioLogado) { <div>...</div> }`  |
-| Loops               | Tradicional: `*ngFor="let item of itens"`    | `<li *ngFor="let item of itens">`         |
-|                     | Angular 17+: `@for (item of itens) { ... }`  | `@for (item of itens) { <li>...</li> }`   |
+| Condicionais        | Moderno: `@if (condicao) { ... }`            | `@if (usuarioLogado) { <div>...</div> }`  |
+|                     | Tradicional: `*ngIf="condicao"` (deprecated) | `<div *ngIf="usuarioLogado">`             |
+| Loops               | Moderno: `@for (item of itens) { ... }`      | `@for (item of itens) { <li>...</li> }`   |
+|                     | Tradicional: `*ngFor="let item of itens"` (deprecated) | `<li *ngFor="let item of itens">` |

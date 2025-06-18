@@ -527,16 +527,18 @@ interface User {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   template: `
     <h1>Lista de Usuários</h1>
     
     <div class="users-grid">
-      <div class="user-card" *ngFor="let user of users()">
-        <h3>{{ user.name }}</h3>
-        <p>{{ user.email }}</p>
-        <a [routerLink]="['/users', user.id]" class="btn">Ver Detalhes</a>
-      </div>
+      @for (user of users(); track user.id) {
+        <div class="user-card">
+          <h3>{{ user.name }}</h3>
+          <p>{{ user.email }}</p>
+          <a [routerLink]="['/users', user.id]" class="btn">Ver Detalhes</a>
+        </div>
+      }
     </div>
   `,
   styles: [`
@@ -588,22 +590,22 @@ interface User {
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
-    <div *ngIf="user(); else loading">
-      <h1>{{ user()?.name }}</h1>
-      <p><strong>Email:</strong> {{ user()?.email }}</p>
-      <p><strong>Bio:</strong> {{ user()?.bio }}</p>
-      
-      <div class="actions">
-        <button (click)="goBack()" class="btn">Voltar</button>
-        <button (click)="editUser()" class="btn btn-primary">Editar</button>
+    @if (user()) {
+      <div>
+        <h1>{{ user()?.name }}</h1>
+        <p><strong>Email:</strong> {{ user()?.email }}</p>
+        <p><strong>Bio:</strong> {{ user()?.bio }}</p>
+        
+        <div class="actions">
+          <button (click)="goBack()" class="btn">Voltar</button>
+          <button (click)="editUser()" class="btn btn-primary">Editar</button>
+        </div>
       </div>
-    </div>
-    
-    <ng-template #loading>
+    } @else {
       <p>Carregando usuário...</p>
-    </ng-template>
+    }
   `,
   styles: [`
     .actions {
@@ -777,5 +779,3 @@ ng generate guard guards/auth
 # Gerar resolver
 ng generate resolver resolvers/user-data
 ```
-
-Esta aula cobre os conceitos fundamentais de roteamento no Angular v19+ com exemplos práticos e funcionais que você pode usar como base para seus projetos!

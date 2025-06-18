@@ -62,11 +62,12 @@
   </main>
 
   <!-- Offcanvas Overlay -->
-  <div 
-    *ngIf="isOffcanvasOpen"
-    class="fixed inset-0 bg-black bg-opacity-50 z-40"
-    (click)="closeOffcanvas()">
-  </div>
+  @if (isOffcanvasOpen) {
+    <div 
+      class="fixed inset-0 bg-black bg-opacity-50 z-40"
+      (click)="closeOffcanvas()">
+    </div>
+  }
 
   <!-- Offcanvas -->
   <div 
@@ -97,10 +98,16 @@
             formControlName="nome"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             [class.border-red-500]="nome?.invalid && nome?.touched">
-          <div *ngIf="nome?.invalid && nome?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="nome?.errors?.['required']">Nome é obrigatório</span>
-            <span *ngIf="nome?.errors?.['minlength']">Nome deve ter pelo menos 2 caracteres</span>
-          </div>
+          @if (nome?.invalid && nome?.touched) {
+            <div class="mt-1 text-sm text-red-600">
+              @if (nome?.errors?.['required']) {
+                <span>Nome é obrigatório</span>
+              }
+              @if (nome?.errors?.['minlength']) {
+                <span>Nome deve ter pelo menos 2 caracteres</span>
+              }
+            </div>
+          }
         </div>
 
         <div>
@@ -111,10 +118,16 @@
             formControlName="email"
             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             [class.border-red-500]="email?.invalid && email?.touched">
-          <div *ngIf="email?.invalid && email?.touched" class="mt-1 text-sm text-red-600">
-            <span *ngIf="email?.errors?.['required']">Email é obrigatório</span>
-            <span *ngIf="email?.errors?.['email']">Email deve ter um formato válido</span>
-          </div>
+          @if (email?.invalid && email?.touched) {
+            <div class="mt-1 text-sm text-red-600">
+              @if (email?.errors?.['required']) {
+                <span>Email é obrigatório</span>
+              }
+              @if (email?.errors?.['email']) {
+                <span>Email deve ter um formato válido</span>
+              }
+            </div>
+          }
         </div>
 
         <div>
