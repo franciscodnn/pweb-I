@@ -1,10 +1,18 @@
+<style>
+  div {
+    border-bottom: 1px solid #ccc;;
+  }
+</style>
 <div>
   @for(user of usersList(); track user.id) {
-    <div>
-      <p>{{ user.name }}</p>
-      <p>{{ user.email }}</p>
-      <p>{{ user.login }}</p>
-      <p>{{ user.bio }}</p>
-    </div>
+    <!-- <a [routerLink]="['/users', user.id]"> -->
+    <a routerLink="/userDetails" [queryParams]="{ id: user.id }">
+      <div>
+        <p>{{ user.name }}</p>
+        <p>{{ user.email }}</p>
+        <p>{{ user.login }}</p>
+        <p>{{ user.bio }}</p>
+      </div>
+    </a>
   }
 </div>

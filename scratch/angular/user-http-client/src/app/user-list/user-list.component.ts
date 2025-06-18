@@ -1,12 +1,11 @@
 import { Component, model, effect, inject } from '@angular/core';
-
 import { StorageService } from '../services/storage.service';
-
 import { User } from '../model/user.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'user-list',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })

@@ -22,4 +22,8 @@ export class StorageService {
   createUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.host}/${this.resource}`, user);
   }
+
+  getUserById(id: string): Observable<User> {
+    return this.http.get<User>(`${this.host}/${this.resource}/${id}`);
+  }
 }
