@@ -11,3 +11,5 @@
 10. [Angular - Templates](./classes/10_templates/README.md)
 11. [Angular - Formulários](./classes/11_forms/README.md)
 12. [Angular - HTTP Client](./classes/12_angular_http_client/README.md)
+13. [Angular - Routes](./classes/13_angular_routes/README.md)
+14. [Spring Boot - Injeção de Dependência (DI) / Inversão de Control (IoC)](./classes/14_di_ioc/README.md)
