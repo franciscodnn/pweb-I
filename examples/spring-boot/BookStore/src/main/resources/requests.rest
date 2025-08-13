@@ -1,0 +1,11 @@
+###
+GET http://localhost:8080/books/1
+
+###
+POST http://localhost:8080/books
+Content-Type: application/json
+
+{
+  "preco": 50,
+  "paginas": 380
+}
