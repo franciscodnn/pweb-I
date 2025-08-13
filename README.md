@@ -13,3 +13,5 @@
 12. [Angular - HTTP Client](./classes/12_angular_http_client/README.md)
 13. [Angular - Routes](./classes/13_angular_routes/README.md)
 14. [Spring Boot - Injeção de Dependência (DI) / Inversão de Control (IoC)](./classes/14_di_ioc/README.md)
+15. [Arquitetura](./classes/15_architecture/README.md)
+16. [Spring Boot - API Rest](./classes/16_spring_boot/README.md)
