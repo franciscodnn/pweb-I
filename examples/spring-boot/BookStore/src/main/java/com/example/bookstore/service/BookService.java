@@ -21,14 +21,8 @@ public class BookService {
         return this.bookRepository.findAll();
     }
 
-    public ResponseEntity<Book> findById(Long id) {
-        Book book = this.bookRepository.findById(id).orElse(null);
-
-        if(book == null){
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(book);
+    public Book findById(Long id) {
+        return this.bookRepository.findById(id).orElse(null);
     }
 
     public Book findByTitle(String title) {
@@ -36,7 +30,19 @@ public class BookService {
     }
 
     public Book createBook(Book book) {
-        return this.bookRepository.save(book);
+        return bookRepository.save(book);
+    }
+
+    public String removeBook(Long id) {
+        Book book = this.findById(id);
+
+        if(book == null) {
+            return "Livro não encontrado";
+        }
+
+        bookRepository.delete(book);
+
+        return "Livro removido com sucesso";
     }
 
 }

@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface BookRepository extends JpaRepository<Book, Long> {
 
     public Book findByTitleIgnoreCase(String title);
+    public Book removeBookById(Long id);
 }

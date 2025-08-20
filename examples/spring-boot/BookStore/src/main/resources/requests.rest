@@ -6,6 +6,13 @@ POST http://localhost:8080/books
 Content-Type: application/json
 
 {
-  "preco": 50,
+  "title": "Introdução a Algoritmos",
+  "preco": 90,
   "paginas": 380
 }
+
+###
+DELETE http://localhost:8080/books/4
+
+###
+GET http://localhost:8080/books?t=Dominando Spring Boot
