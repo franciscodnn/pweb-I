@@ -1,0 +1,19 @@
+###
+GET http://localhost:8080/clothes/all
+
+###
+GET http://localhost:8080/clothes/1
+
+###
+POST http://localhost:8080/clothes
+Content-Type: application/json
+
+{
+  "tipo": "jaqueta",
+  "cor": "branca",
+  "tamanho": "GG",
+  "tecido": "jeans"
+}
+
+###
+DELETE http://localhost:8080/clothes/2

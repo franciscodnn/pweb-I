@@ -26,4 +26,22 @@ public class ClotheService {
         return clotheRepository.findById(id).orElse(null);
     }
 
+    public String create(Clothe clothe) {
+        clotheRepository.save(clothe);
+
+        return "Objeto criado!";
+    }
+
+    public String remove(long id) {
+        Clothe clothe = this.findById(id);
+
+        if(clothe == null) {
+            return "Código inexistente";
+        }
+
+        clotheRepository.delete(clothe);
+
+        return "Item removido";
+    }
+
 }

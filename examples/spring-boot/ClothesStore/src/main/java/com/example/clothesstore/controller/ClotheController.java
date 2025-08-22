@@ -2,11 +2,11 @@ package com.example.clothesstore.controller;
 
 import com.example.clothesstore.model.Clothe;
 import com.example.clothesstore.service.ClotheService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,13 +21,31 @@ public class ClotheController {
 
     // localhost:8080/clothes/all
     @GetMapping("/all")
-    public List<Clothe> findAll() {
+    public List<?> findAll() {
         return clotheService.findAll();
+        /*
+        List<String> l = new ArrayList<String>();
+        l.add("elemento 1");
+        l.add("elemento 2");
+        return l;
+        */
     }
 
     // localhost:8080/clothes/1
     @GetMapping("/{id}")
-    public Clothe findById(@PathVariable Long id) {
-        return clotheService.findById(id);
+    public ResponseEntity<Clothe> findById(@PathVariable Long id) {
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(clotheService.findById(id));
+    }
+
+    @PostMapping
+    public String create(@RequestBody Clothe clothe) {
+        return clotheService.create(clothe);
+    }
+
+    @DeleteMapping("/{id}")
+    public String remove(@PathVariable long id) {
+        return clotheService.remove(id);
     }
 }
