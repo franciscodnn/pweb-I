@@ -2,7 +2,11 @@ package com.example.bookstore.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.ToString;
 
+@Data
+// @ToString
 @Entity
 @Table(name = "book")
 public class Book {
@@ -21,6 +25,7 @@ public class Book {
     @Column(nullable = true)
     private double paginas;
 
+    /*
     public Long getId() {
         return id;
     }
@@ -52,4 +57,5 @@ public class Book {
     public void setPaginas(double paginas) {
         this.paginas = paginas;
     }
+    */
 }
